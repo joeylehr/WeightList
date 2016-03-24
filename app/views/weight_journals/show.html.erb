@@ -1,0 +1,69 @@
+<p><%= @weight_journal.title %> </p>
+<p>Start Date: <%= @weight_journal.start_date %></p>
+<p>Start Weight: <%= @weight_journal.starting_weight %></p>
+<p>Weight Goal: <%= @weight_journal.weight_goal %></p>
+<p>Final Weigh In Date: <%= @weight_journal.final_weigh_in_date %></p>
+<p>Weight to Loose per day to hit goal EITHER MAKE THIS DYNAMIC OR CREATE A NEW FUNCTION THAT MAKES THIS DYNAMIC <%= @weight_journal.avg_weight_to_loose_a_day_to_hit_goal %></p> 
+
+<p>Total lbs to Loose ALSO MAKE THIS DYNAMIC: <%= @weight_journal.total_lbs_to_loose%></p>
+
+<p>Past few posts</p>
+@weight_journal.last_three_days_posts
+
+    <% @weight_journal.last_three_days_posts.map do |meow| %>
+    <%= link_to(meow.entry_date, weight_journal_post_path(@weight_journal, meow)) %>
+    <% end %>
+
+
+<% if @weight_journal.posts.count >= 1 %>
+    <p>Create a new <%= link_to "post", new_weight_journal_post_path(@weight_journal) %> </p>
+
+    <p>Total number of posts: <%= @weight_journal.total_num_of_posts %> </p>
+
+    <p> "View all posts" (add JS hide option / move to bottom of page) </p>
+    <ul>
+    <% @weight_journal.posts.map do |p| %>
+    <li>
+    <%= link_to(p.entry_date, weight_journal_post_path(@weight_journal, p)) %>
+    </li>
+    <% end %>
+  </ul>
+<% else %> 
+  <p> Get started ... <%= link_to "create a post!",  new_weight_journal_post_path(@weight_journal) %> </p>
+<% end %>
+
+<% if @weight_journal.workouts.count >= 1 %>
+   
+   <p>% of times worked out: <%= @weight_journal.workouts_percentage %>%
+  </p>
+
+  <p>Most Popular Workout <br>
+  Workout Type: <%= @weight_journal.most_popular_exercise_per_weight_journal[0].capitalize %> <br> 
+  Workout Number: <%= @weight_journal.most_popular_exercise_per_weight_journal[1] %>
+  </p>
+
+  Total List of Workouts:
+  <ul>
+    <% @weight_journal.exercises_listed_in_order.map do |k, v| %>
+    <li>
+      Workout Type: <%= k %> <br>
+      Workout Number: <%= v %>
+    </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @weight_journal.feelings.count >= 1 %>
+Total List of Feelings:
+<ul>
+  <% @weight_journal.feelings_listed_in_order.map do |k, v| %>
+  <li>
+    Feeling Type: <%= k %> <br>
+    Number of times felt: <%= v %>
+  </li>
+  <% end %>
+</ul>
+<% end %>
+
+<p><%= link_to("View all posts", weight_journal_posts_path(@weight_journal)) %></p>
+<p><%= link_to("Go back to homepage", user_path(@weight_journal.user_id)) %></p>

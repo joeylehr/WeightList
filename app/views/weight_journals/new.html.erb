@@ -1,0 +1,14 @@
+<%= form_for @weight_journal do |f| %>
+  <p><%= f.label :title %></p>
+  <p><%= f.text_field :title %></p>
+  <p><%= f.label :start_date %> </p>
+  <p><%= f.date_field :start_date %> </p>
+  <p><%= f.label :starting_weight %> (in lbs) </p>
+  <p><%= f.number_field :starting_weight %> </p>
+  <p><%= f.label :weight_goal %> (in lbs) </p>
+  <p><%= f.number_field :weight_goal %> </p>
+  <p><%= f.label :final_weigh_in_date %> </p>
+  <p><%= f.date_field :final_weigh_in_date %> </p>
+  <%= f.submit %>
+<% end %>
+

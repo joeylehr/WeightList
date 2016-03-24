@@ -1,0 +1,2 @@
+class PostFeelingsController < ApplicationController
+end

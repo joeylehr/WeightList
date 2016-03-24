@@ -1,0 +1,30 @@
+# == Schema Information
+#
+# Table name: posts
+#
+#  id                :integer          not null, primary key
+#  entry_date        :date
+#  current_weight    :integer
+#  worked_out        :boolean
+#  motivation_level  :integer
+#  weight_journal_id :integer
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  notes             :text
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  entry_date: 2016-03-16
+  current_weight: 1
+  worked_out?: false
+  motivation_level: 1
+  weight_journal_id: 1
+
+two:
+  entry_date: 2016-03-16
+  current_weight: 1
+  worked_out?: false
+  motivation_level: 1
+  weight_journal_id: 1

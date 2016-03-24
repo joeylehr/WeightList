@@ -1,0 +1,2 @@
+module WeightJournalsHelper
+end

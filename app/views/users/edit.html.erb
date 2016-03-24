@@ -1,0 +1,16 @@
+<%= form_for @user do |f| %>
+  <p><%= f.label :first_name %> </p>
+  <p><%= f.text_field :first_name %> </p>
+  <p><%= f.label :last_name %> </p>
+  <p><%= f.text_field :last_name %> </p>
+  <p><%= f.label :birth_date %> </p>
+  <p><%= f.date_field :birth_date %> </p>
+  <p><%= f.label :starting_weight %> (in lbs) </p>
+  <p><%= f.number_field :starting_weight %> </p>
+  <p><%= f.label :weight_goal %> (in lbs) </p>
+  <p><%= f.number_field :weight_goal %> </p>
+  <p><%= f.label :final_weigh_in_date %> </p>
+  <p><%= f.date_field :final_weigh_in_date %> </p>
+  <p><%= f.submit %>
+<% end %>
+

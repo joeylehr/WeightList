@@ -1,0 +1,44 @@
+<!-- if Time.day > @user.last day, flash message, this weight journal has closed, create a new one and redirect to /weight_journal/new-->
+<% if  DateTime.now.to_date > @weight_journal.final_weigh_in_date %>
+  <!-- if @user.final_weigh_in_date > LAST POST WEIGH-in (use active record)
+ -->
+  Congrats you finished your weight journal (add weight journal number) -- you can click here to start a new journal or click here to review your old posts. 
+<!--     if they hit their weight say 
+  You succed in hitting your goal! You lsot X pounds in x days for an average of X lbs a day -->
+  <%= link_to("create a new journal", new_weight_journal_path) %>
+  <%= link_to("view all posts", weight_journal_posts_path(@weight_journal, @post)) %>
+<!--   
+  else 
+  if @user.final_weigh_in_date  LAST POST WEIGH-in (use active record)
+    Unfortunately it seems like you weren't able to reach your goal.
+   -->
+<% else %>
+
+  <%= form_for([@weight_journal, @post], :method => :post, :url => weight_journal_posts_path(@weight_journal, @post)) do |f| %>
+  <!-- can also do form_for([@weight_journal, @post])-->
+    <br>
+    <p><%= f.label "Entry Date" %>
+    <%= f.date_field :entry_date %></p>
+
+    <p><%= f.label "Current Weight" %>
+    <%= f.number_field :current_weight %></p>
+
+      <p><%= f.label "Worked Out?" %>
+    <%= f.check_box :worked_out %></p>
+
+    <p><%= f.label "Motivational Level (1-10)" %>
+    <%= f.number_field :motivation_level, in: 1..10 %></p>
+
+    <p><%= f.label "What workout did you complete today?" %> <br>
+    <%= f.collection_check_boxes(:workout_ids, Workout.all, :id, :workout_type) %></p>
+    
+    <p><%= f.label "How'd you feel today?" %> <br>
+    <%= f.collection_check_boxes(:feeling_ids, Feeling.all, :id, :feeling) %></p>
+
+    <p><%= f.label "Notes" %>
+    <%= f.text_area :notes %></p>
+
+    <%= f.submit "Great job!" %></p>
+
+  <% end %>
+<% end %>

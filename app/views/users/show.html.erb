@@ -1,0 +1,41 @@
+
+<p>Name: <%=@user.full_name %></p> 
+<p>Birth Date: <%=@user.birth_date %> </p>
+
+
+<% if @user.weight_journals.count == 0 %>
+  <%= link_to("Create a new weight journal!", new_weight_journal_path) %>
+  <!-- Add logic that if no weight journal exists don't display anything from below -->
+
+<% else %>
+  Active Journal: 
+  <!-- Link to active journal -->
+  <ul>
+  <p><% @user.active_journal.each do |j| %> </p>
+  <li>
+      <%= link_to(j.title, weight_journal_path(j)) %>
+    </li>
+  <% end %>
+  </ul>
+
+
+  Completed Journals: 
+  <ul>
+  <% @user.completed_journals.each do |j| %> 
+    <li>
+      <%= link_to(j.title, weight_journal_path(j)) %>
+    </li>
+
+  <!-- #ITERATVE THROUGH LINKING TO COMPLETED JOURNALS-->
+  <% end %>
+  </ul>
+
+  <p>Total Posts: <%=@user.number_of_posts %> </p>
+  <p>Total Journals Completed: </p>
+  <%= link_to("Create New Journal", new_weight_journal_path) %>
+
+
+
+
+
+<% end %>

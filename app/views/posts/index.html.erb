@@ -1,0 +1,14 @@
+<h1><%= @user.full_name %> -- Total Posts</h1>
+
+
+<ul>
+  <% @user_posts.map do |post| %> 
+    <p>
+    <li>Entry Date: <%= post.entry_date %> <br>
+    Worked out: <%= post.worked_out? %> <br>
+    Motivation Level: <%= post.motivation_level%> <br>
+    <%= link_to("View entry post", weight_journal_post_path(@weight_journal, post)) %>  </li> </p> 
+  <% end %>
+</ul>
+
+
