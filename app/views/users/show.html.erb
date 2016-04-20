@@ -1,41 +1,43 @@
 
-<p>Name: <%=@user.full_name %></p> 
-<p>Birth Date: <%=@user.birth_date %> </p>
-
-
+<div class="getting_started">
 <% if @user.weight_journals.count == 0 %>
-  <%= link_to("Create a new weight journal!", new_weight_journal_path) %>
+  <%= link_to("Get started and create your first  weight journal!", new_weight_journal_path) %>
+  <div class="veggies">
+  <%= image_tag("veggieslifting.gif", :id => "veggies") %>
+  </div>
   <!-- Add logic that if no weight journal exists don't display anything from below -->
-
+</div>
 <% else %>
-  Active Journal: 
-  <!-- Link to active journal -->
-  <ul>
-  <p><% @user.active_journal.each do |j| %> </p>
-  <li>
-      <%= link_to(j.title, weight_journal_path(j)) %>
-    </li>
+<div class="large-size">
+  <%= link_to("Create a New Journal!", new_weight_journal_path) %>
+  </div>
+<div class="container">
+<div class="row">
+<div class="col-md-6">
+  <h2>Active Journal(s):</h2>
+  <% @user.active_journal.each do |j| %>
+  <%= link_to(j.title, weight_journal_path(j)) %>
+  <br>
   <% end %>
-  </ul>
-
-
-  Completed Journals: 
-  <ul>
+  </div>
+  <div class="col-md-6">
+  <h2>Completed Journal(s):</h2>
   <% @user.completed_journals.each do |j| %> 
-    <li>
-      <%= link_to(j.title, weight_journal_path(j)) %>
-    </li>
+    <%= link_to(j.title, weight_journal_path(j)) %>
+    <br>
 
   <!-- #ITERATVE THROUGH LINKING TO COMPLETED JOURNALS-->
   <% end %>
-  </ul>
+  </div>
+</div>
 
-  <p>Total Posts: <%=@user.number_of_posts %> </p>
-  <p>Total Journals Completed: </p>
-  <%= link_to("Create New Journal", new_weight_journal_path) %>
-
-
-
-
-
+  <div class="footer">
+  Total Active Journals: <%= @user.active_journal.count %>
+  &nbsp; &nbsp; &nbsp; &nbsp;
+  Total Completed Journals: <%= @user.completed_journals.count %>
+  &nbsp; &nbsp; &nbsp; &nbsp;
+  Total Posts: <%=@user.number_of_posts %> 
+  &nbsp; &nbsp; &nbsp; &nbsp;
+ </div>  
 <% end %>
+</div>

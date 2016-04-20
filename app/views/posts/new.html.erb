@@ -2,18 +2,24 @@
 <% if  DateTime.now.to_date > @weight_journal.final_weigh_in_date %>
   <!-- if @user.final_weigh_in_date > LAST POST WEIGH-in (use active record)
  -->
-  Congrats you finished your weight journal (add weight journal number) -- you can click here to start a new journal or click here to review your old posts. 
+ <h1>
+  Congrats you finished "<%= @weight_journal.title %>" ! 
+  </h1> 
+  <h2><%= link_to("click here to create a new journal", new_weight_journal_path) %> or  <br><br> <%= link_to("click here to view all posts", weight_journal_posts_path(@weight_journal, @post)) %> or <br><br> 
+    <%= link_to("return home", user_path(@user)) %>
+  </h2>  
+
 <!--     if they hit their weight say 
   You succed in hitting your goal! You lsot X pounds in x days for an average of X lbs a day -->
-  <%= link_to("create a new journal", new_weight_journal_path) %>
-  <%= link_to("view all posts", weight_journal_posts_path(@weight_journal, @post)) %>
+  
+ 
 <!--   
   else 
   if @user.final_weigh_in_date  LAST POST WEIGH-in (use active record)
     Unfortunately it seems like you weren't able to reach your goal.
    -->
 <% else %>
-
+  <h1><%= @weight_journal.title %></h1>
   <%= form_for([@weight_journal, @post], :method => :post, :url => weight_journal_posts_path(@weight_journal, @post)) do |f| %>
   <!-- can also do form_for([@weight_journal, @post])-->
     <br>

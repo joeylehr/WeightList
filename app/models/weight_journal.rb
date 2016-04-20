@@ -88,12 +88,29 @@ class WeightJournal < ActiveRecord::Base
 
 # WeightJournal.joins(:workouts).where(id: 1).first
 
+def most_popular_exercise_per_weight_journal
+  WeightJournal.where(id: 19).first.posts.map do |post|
+    post.post_workouts.map do |pw|
+      pw
+    end
+    end.flatten.map do | pw |
+      Workout.find(pw.workout_id)
+    end
+end
+
+  # def most_popular_exercise_per_weight_journal
+  #   most_popular = PostWorkout.join
+
+  #   wj_posts = WeightJournal.joins(:post_workouts).where(id: 19)
+  #   wj_posts.map do |wj|
 
 
-  def most_popular_exercise_per_weight_journal
-    totals = WeightJournal.joins(:workouts).where(id: self.id).first.workouts.group(:workout_type).count
-      max = totals.max_by {|k,v| v}
-  end
+  #   WeightJournal.joins(:workouts).where(user_id: self.id).first.workouts.group(:workout_type).count
+  #   final = most_popular.map { |k, v| k if v == most_popular.values.max }
+  #   final.compact.map do |id|
+  #     Workout.find(id)
+  #   end
+  # end
 
   def exercises_listed_in_order
     totals = WeightJournal.joins(:workouts).where(id: self.id).first.workouts.group(:workout_type).count

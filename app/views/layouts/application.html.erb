@@ -2,21 +2,60 @@
 <html>
 <head>
   <title>WeightList</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div id="user_header">
+<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700' rel='stylesheet' type='text/css'>
+  <div class="navbar">
+    
+    <ul>
+
     <% if current_user %>
-      Hi <%= current_user.first_name %>! <br>
-      <%= link_to "Log out", logout_path %>
-    <% else %>
-      <%= link_to "Sign Up", signup_path %> or
-      <%= link_to "Log In", login_path %>
+      <li>Hi, <%= current_user.first_name %>!</li>
     <% end %>
+  
+    <div class="logged_in">
+    <% if current_user %>
+    <li><%= link_to "Home Page", user_path(current_user) %></li>
+    <li><%= link_to "Log Out", logout_path %></li>
+    </div>
+    <% else %>
+      <li><%= link_to "Sign Up", signup_path %></li>
+      <li><%= link_to "Log In", login_path %></li>
+     <% end %>
+
+      <% if !@weight_journal.nil? && current_page?(controller: 'weight_journals', action: "show", id: "#{@weight_journal.id}") %>
+
+            <li>Currently Working on: <%= @weight_journal.title %> </li>
+            <li><%= link_to "New Post", new_weight_journal_post_path(@weight_journal) %> </li>
+      <% end %>
+
+      <% if  params.include?(:weight_journal_id)  && current_page?(new_weight_journal_post_path(@weight_journal)) %>
+      <li>Currently Working on: <%= @weight_journal.title %> </li>
+      
+      <% end %>
+
+      <% if(params.include?(:weight_journal_id) && params.include?(:id)) &&
+        current_page?(weight_journal_post_path(params[:weight_journal_id], params[:id])) %>
+      <li>Currently Working on: <%= @weight_journal.title %> </li>
+     
+      <% end %>
+
+    </ul>
+
+    <% flash.each do |name, msg| %>
+    <%= content_tag :div, msg, id: "flash_#{name}" %>
+ 
+  <% end %>
   </div>
+<!-- our nav bar -->
+<div class="container">
 <%= yield %>
+</div>
+
+<!-- our footer -->
 
 </body>
 </html>

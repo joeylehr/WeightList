@@ -1,0 +1,121 @@
+.navbar {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 20px;
+  padding: 10px 10px;
+  position: fixed;
+  transform: translateZ(0px);
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  height: 60px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
+  z-index: 1030;
+  box-shadow: rgba(74, 74, 74, 0.2) 0px 2px 2px 0px;
+  display: flex;
+}
+
+.navbar li {
+  display: inline;
+  padding: 10px;
+  color: black;
+}
+
+.container {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 20px;
+  padding: 3px 3px;
+  margin-top: 10px;
+}
+
+.rickross img {
+   height: 80%;
+   width: 100%;
+}
+
+.rickross_text {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-style: italic;
+  color: red;
+  text-align: center;
+}
+
+.getting_started {
+  font-size: 60px;
+  text-align: center;
+}
+
+.existing_user {
+  font-size: 20px;
+}
+
+.large-size {
+  font-size: 70px;
+  text-align: center;
+  padding-top: 1em;
+}
+
+.col-md-6 {
+  text-align: center;
+}
+
+.container { white-space: nowrap; }
+.journals { display: inline-block; width: 50%; white-space: normal; }
+
+
+input[type="checkbox"] {
+  padding-left: 7px;
+  padding-right: 10px;
+  border-radius: 10px;
+
+  -webkit-appearance:button;
+
+  border: double 2px #00F;
+  background-color: white;
+  width:15px;
+  height:15px;
+}
+
+input[type="checkbox"]:checked {
+  background-color:green;
+}
+
+.act_journal {
+  text-align: center;
+}
+
+.veggies img {
+   padding-top: 6px;
+   display: block;
+   margin-left: auto;
+   margin-right: auto 
+}
+
+.footer {
+position:fixed;
+   left:0px;
+   bottom:0px;
+   height:30px;
+   width:100%;
+   background:#999;
+}
+
+.logged_in {
+   position:absolute;
+   top:0;
+   right:0;
+   padding: 10px;
+}
+
+.journal_background {
+    border-radius: 25px;
+    background: #73AD21;
+    width: auto;
+    height: auto; 
+}
+
+.no_previous_posts {
+  padding-top: 2em;
+  text-align: center;
+  font-size: 70px;
+}

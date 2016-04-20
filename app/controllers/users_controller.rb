@@ -16,7 +16,6 @@ class UsersController < ApplicationController
   end 
 
   def show 
-    # wj = WeightJournal.find(params[:id]) -- striked out
     @user = User.find(params[:id])
   end 
 

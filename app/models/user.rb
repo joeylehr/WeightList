@@ -42,6 +42,7 @@ class User < ActiveRecord::Base
   end
 
   def self.number_of_posts #for admin
+    ## MOVE THIS TO JUST POST.COUNT
     User.joins(:posts).count
   end
 
@@ -63,6 +64,7 @@ class User < ActiveRecord::Base
     #use take to do limit 5 also need where journals are completed
   end
 
+  
 
 ### THE TWO BELOW CLASS METHODS MIGHT NOT BE NECESSARY 
 ##AS WE SHOULD BE CALLING IT ON THE WEIGHTJOURNAL MODEL**
