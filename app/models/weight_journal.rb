@@ -88,15 +88,43 @@ class WeightJournal < ActiveRecord::Base
 
 # WeightJournal.joins(:workouts).where(id: 1).first
 
-def most_popular_exercise_per_weight_journal
-  WeightJournal.where(id: 19).first.posts.map do |post|
-    post.post_workouts.map do |pw|
-      pw
+# def most_popular_exercise_per_weight_journal
+#   binding.pry
+#   PostWorkout.where(workout_id: self.id).first.posts.map do |post|
+#     post.post_workouts.map do |pw|
+#       pw
+#     end
+#     end.flatten.map do | pw |
+#       Workout.find(pw.workout_id)
+#     end
+# end
+
+  def array_all_posts_of_a_weightjournal
+  WeightJournal.find_by(id: self.id).posts.map do |post|
+    post.id 
     end
-    end.flatten.map do | pw |
-      Workout.find(pw.workout_id)
+  end
+
+  def array_of_workouts(array_all_posts_of_a_weightjournal)
+    i = 0
+    array = []
+    while i <= array_all_posts_of_a_weightjournal.length
+      array << PostWorkout.find_by(post_id: array_all_posts_of_a_weightjournal[i])
+      i = i + 1
     end
-end
+      array.compact.map do |w|
+      Workout.find(w.workout_id).workout_type
+    end
+  end
+
+  def most_popular_exercise_per_weight_journal(array_of_workouts)
+    num_hash = Hash[array_of_workouts.uniq.map { |a| [a, array_of_workouts.count(a)] }]
+    final = num_hash.map { |k, v| k if v == num_hash.values.max }
+  end
+
+
+
+
 
   # def most_popular_exercise_per_weight_journal
   #   most_popular = PostWorkout.join
@@ -123,9 +151,24 @@ end
   #     max = totals.max_by {|k,v| v}
   # end
 
+#   def most_popular_exercise_per_weight_journal
+#   WeightJournal.where(id: self.id).first.posts.map do |post|
+#     post.post_workouts.map do |pw|
+#       pw
+#     end
+#     end.flatten.map do | pw |
+#       Workout.find(pw.workout_id)
+#     end
+# end
+
   def most_popular_feeling
-    totals = WeightJournal.joins(:feelings).where(id: self.id).first.feelings.group(:feeling).count
-      max = totals.max_by {|k,v| v}
+    WeightJournal.where(id: self.id).first.posts.map do |post|
+      post.post_feelings.map do |pf|
+        pf
+      end
+    end.flatten.map do |pf|
+      Feeling.find(pf.feeling_id)
+    end
   end
 
   def feelings_listed_in_order
@@ -133,6 +176,10 @@ end
     total = totals.sort_by{|k,v| v}.reverse.to_h
   end
 
+  def last_submitted_post
+    Post.where(weight_journal_id: self.id).last
+    # User.last.weight_journals.second.posts.last
+  end
 
   def self.most_popular_exercise
   end

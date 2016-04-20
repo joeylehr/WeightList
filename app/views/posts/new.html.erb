@@ -19,7 +19,6 @@
     Unfortunately it seems like you weren't able to reach your goal.
    -->
 <% else %>
-  <h1><%= @weight_journal.title %></h1>
   <%= form_for([@weight_journal, @post], :method => :post, :url => weight_journal_posts_path(@weight_journal, @post)) do |f| %>
   <!-- can also do form_for([@weight_journal, @post])-->
     <br>
@@ -47,4 +46,18 @@
     <%= f.submit "Great job!" %></p>
 
   <% end %>
+
+  <div class="footer" align="center">
+  <% if @weight_journal.posts.count >= 1 %>
+    Last post  your weigh-in weight was: <%= @weight_journal.last_submitted_post.current_weight %>
+  <% end %>
+  &nbsp; &nbsp; &nbsp; &nbsp;
+  <%= (@weight_journal.final_weigh_in_date - DateTime.now).to_i + 1 %> days left to reach your goal of <%= @weight_journal.weight_goal %> lbs!
+  &nbsp; &nbsp; &nbsp; &nbsp;
+  <% if @weight_journal.posts.count >= 1 %>
+  <%= link_to("View all posts", weight_journal_posts_path(@weight_journal)) %>
+  <% end %>
+ </div>  
+
+
 <% end %>

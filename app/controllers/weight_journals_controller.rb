@@ -17,7 +17,10 @@ class WeightJournalsController < ApplicationController
   end
 
   def show
-    find_weight_journal
+    @weight_journal = WeightJournal.find(params[:id])
+    @wj_posts = @weight_journal.array_all_posts_of_a_weightjournal
+    @arr_workouts = @weight_journal.array_of_workouts(@wj_posts)
+    @most_pop_workout =  @weight_journal.most_popular_exercise_per_weight_journal(@arr_workouts).compact
   end
 
   def edit
@@ -48,6 +51,5 @@ class WeightJournalsController < ApplicationController
   def wj_params
     params.require(:weight_journal).permit(:title, :start_date, :starting_weight, :final_weigh_in_date, :weight_goal)
   end
-
 
 end

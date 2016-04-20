@@ -93,7 +93,11 @@ class User < ActiveRecord::Base
   #   if journal_completed
 
   # end
+  def self.all_weight_goals
+  end
 
+  def self.actual_completed_goals
+  end
   # def self.reach_weight_goal
   # end
 

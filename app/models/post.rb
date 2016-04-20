@@ -20,7 +20,7 @@ class Post < ActiveRecord::Base
   has_many :post_workouts
   has_many :workouts, through: :post_workouts
 
- 
+
 
   # def self.index_for_a_specific_user
   #   @all_posts = Post.all

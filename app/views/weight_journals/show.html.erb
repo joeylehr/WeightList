@@ -1,22 +1,22 @@
 <div class="row">
 <h1>starting stats:</h1>
 <div class="col-md-4">
-Start Date: <%= @weight_journal.start_date %>
+<strong>Start Date:</strong> <%= @weight_journal.start_date %>
 </div>
 <div class="col-md-4">
-Start Weight: <%= @weight_journal.starting_weight %>
+<strong>Start Weight: </strong><%= @weight_journal.starting_weight %>
 </div>
 <div class="col-md-4">
-Total lbs. to Lose: <%= @weight_journal.total_lbs_to_loose%>
+<strong>Total lbs. to Lose:</strong> <%= @weight_journal.total_lbs_to_loose %>
 </div>
 <div class="col-md-4">
-Final Weigh In Date: <%= @weight_journal.final_weigh_in_date %>
+<strong>Final Weigh In Date:</strong> <%= @weight_journal.final_weigh_in_date %>
 </div>
 <div class="col-md-4">
-Weight Goal: <%= @weight_journal.weight_goal %>
+<strong>Weight Goal:</strong> <%= @weight_journal.weight_goal %>
 </div>
 <div class="col-md-4">
-Weight to lose per day to hit goal: <%= @weight_journal.avg_weight_to_loose_a_day_to_hit_goal %> 
+<strong>Weight to lose per day to hit goal:</strong> <%= @weight_journal.avg_weight_to_loose_a_day_to_hit_goal %> 
 </div>
 </div>
 <br>
@@ -41,58 +41,53 @@ Weight to lose per day to hit goal: <%= @weight_journal.avg_weight_to_loose_a_da
   </div>
   <br>
 
+<!-- ANALTICS  -->
 <% if @weight_journal.workouts.count >= 1 %>
   <div class="row">
   <h1>analytics:</h1>
+  
+<!-- ANALTICS FOR WORKOUTS -->
   <div class="col-md-6">
   <h2>workouts:</h2>
-  Percentage of times worked out: <%= @weight_journal.workouts_percentage %>
-  </div>
-   <div class="col-md-6"> 
-   <h2>Feelings:</h2>
-  Total List of Feelings:
-  <% @weight_journal.feelings_listed_in_order.map do |k, v| %>
-    <br><%= k %> : <%= v %>
+  <strong>Percentage of times worked out:</strong><br>
+  Of <%= @weight_journal.posts.count %> post(s), you worked out %<%= @weight_journal.workouts_percentage %> of the time
+  <br><br>
+  <strong>Most Popular Workout(s): </strong> 
+  <% @most_pop_workout.map do |workout|
+   %><br>
+   <%= workout %>
   <% end %>
-  </div>
-  <div class="col-md-6">
-  Most Popular Workout(s): 
-  <% @weight_journal.most_popular_exercise_per_weight_journal.map do |workout|
-   %> <br>
-   <%= workout.workout_type %>
-  <% end %>
-  </div>
-  
-  <div class="col-md-6"> 
-  Total List of Workouts:
+  <br><br>
+    <strong>Total List of Workouts:</strong> 
     <% @weight_journal.exercises_listed_in_order.map do |k, v| %>
-      <br> <%= k %> : <%= v %>
+      <br> <%= k.capitalize %> : <%= v %> time(s)
     <% end %>
   </div>
-  </div>
-  <div class="row">
- 
 
+<!-- ANALTICS FOR FEELINGS -->
+   <div class="col-md-6"> 
+   <h2>Feelings:</h2>
+    <strong>Most felt feeling(s):</strong>
+  <% @weight_journal.most_popular_feeling.map do |feels| %><br>
+    <%= feels.feeling %>
+  <% end %>
+<br><br>
+  <strong>Total List of Feelings:</strong>  
+  <% @weight_journal.feelings_listed_in_order.map do |k, v| %>
+    <br><%= k.capitalize %> : <%= v %> time(s)
+  <% end %>
+  </div>
 </div>
 <% end %>
 
-
-<br>
-<% if @weight_journal.posts.count >= 1 %>
-<p>Create a new <%= link_to "post", new_weight_journal_post_path(@weight_journal) %> </p>
-<% end %>
-
-<% if @weight_journal.posts.count >= 1 %>
-<p><%= link_to("View all posts", weight_journal_posts_path(@weight_journal)) %></p>
-<% end %>
-
-
-    <p> "View all posts" (add JS hide option / move to bottom of page) </p>
-
-    <ul>
-    <% @weight_journal.posts.map do |p| %>
-    <li>
-    <%= link_to(p.entry_date, weight_journal_post_path(@weight_journal, p)) %>
-    </li>
-    <% end %>
-  </ul>
+  <div class="footer" align="center">
+  <% if @weight_journal.posts.count >= 1 %>
+  Create a new <%= link_to "post", new_weight_journal_post_path(@weight_journal) %>
+  <% end %>
+  &nbsp; &nbsp; &nbsp; &nbsp;
+  <%= (@weight_journal.final_weigh_in_date - DateTime.now).to_i + 1 %> days left to reach your goal of <%= @weight_journal.weight_goal %> lbs!
+  &nbsp; &nbsp; &nbsp; &nbsp;
+  <% if @weight_journal.posts.count >= 1 %>
+  <%= link_to("View all posts", weight_journal_posts_path(@weight_journal)) %>
+  <% end %>
+ </div>  

@@ -33,13 +33,13 @@
       <% end %>
 
       <% if  params.include?(:weight_journal_id)  && current_page?(new_weight_journal_post_path(@weight_journal)) %>
-      <li>Currently Working on: <%= @weight_journal.title %> </li>
+      <li>Currently Working on: <%= link_to @weight_journal.title, @weight_journal %> </li>
       
       <% end %>
 
       <% if(params.include?(:weight_journal_id) && params.include?(:id)) &&
         current_page?(weight_journal_post_path(params[:weight_journal_id], params[:id])) %>
-      <li>Currently Working on: <%= @weight_journal.title %> </li>
+      <li>Currently Working on: <%= link_to @weight_journal.title, @weight_journal %> </li>
      
       <% end %>
 
