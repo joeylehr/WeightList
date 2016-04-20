@@ -40,6 +40,21 @@ class WeightJournal < ActiveRecord::Base
     Post.where(weight_journal_id: self.id).count
   end
 
+  def array_of_workouts
+    array = []
+    self.post_ids.each do |post_id|
+      array << PostWorkout.where(post_id: post_id)
+    end
+      array.flatten.map do |w|
+        Workout.find(w.workout_id).workout_type
+    end
+  end
+
+  def most_popular_exercise
+    num_hash = Hash[array_of_workouts.uniq.map { |a| [a, array_of_workouts.count(a)] }]
+    final = num_hash.map { |k, v| k if v == num_hash.values.max }
+  end
+
   # joe = User.first.weight_journals.first
   def last_three_days_posts
     array = self.posts.where(entry_date: (Time.now.midnight - 3.day)..Time.now.midnight)
@@ -99,28 +114,6 @@ class WeightJournal < ActiveRecord::Base
 #     end
 # end
 
-  def array_all_posts_of_a_weightjournal
-  WeightJournal.find_by(id: self.id).posts.map do |post|
-    post.id 
-    end
-  end
-
-  def array_of_workouts(array_all_posts_of_a_weightjournal)
-    i = 0
-    array = []
-    while i <= array_all_posts_of_a_weightjournal.length
-      array << PostWorkout.find_by(post_id: array_all_posts_of_a_weightjournal[i])
-      i = i + 1
-    end
-      array.compact.map do |w|
-      Workout.find(w.workout_id).workout_type
-    end
-  end
-
-  def most_popular_exercise_per_weight_journal(array_of_workouts)
-    num_hash = Hash[array_of_workouts.uniq.map { |a| [a, array_of_workouts.count(a)] }]
-    final = num_hash.map { |k, v| k if v == num_hash.values.max }
-  end
 
 
 

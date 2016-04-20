@@ -21,10 +21,11 @@ class WeightJournalsController < ApplicationController
     @wj_posts = @weight_journal.array_all_posts_of_a_weightjournal
     @arr_workouts = @weight_journal.array_of_workouts(@wj_posts)
     @most_pop_workout =  @weight_journal.most_popular_exercise_per_weight_journal(@arr_workouts).compact
+    binding.pry
   end
 
   def edit
-    find_weight_journal
+    @weight_journal = WeightJournal.find(params[:id])
   end
 
   def update 
@@ -37,13 +38,6 @@ class WeightJournalsController < ApplicationController
   end
 
   def destroy
-  end
-
-  #HELPER METHODS
-
-
-  def find_weight_journal
-    @weight_journal = WeightJournal.find(params[:id])
   end
 
   private 
