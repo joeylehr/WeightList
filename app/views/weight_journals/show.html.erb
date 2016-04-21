@@ -69,8 +69,9 @@
    <div class="col-md-6"> 
    <h2>feelings:</h2>
     <strong>Most felt feeling(s):</strong>
-  <% @weight_journal.most_popular_feeling.map do |feels| %><br>
-    <%= feels.feeling %>
+
+  <% @most_popular_feeling.map do |f| %><br>
+    <%= f %>
   <% end %>
 <br><br>
   <strong>Total List of Feelings:</strong>  

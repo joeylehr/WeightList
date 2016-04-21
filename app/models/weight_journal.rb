@@ -51,9 +51,26 @@ class WeightJournal < ActiveRecord::Base
     end
   end
 
-  def most_popular_exercise
+  def array_of_feelings
+    array = []
+    self.post_ids.each do |post_id|
+      array << PostFeeling.where(post_id: post_id)
+    end
+      array.flatten.map do |w|
+        Feeling.find(w.feeling_id).feeling
+    end
+  end
+
+ def most_popular_exercise
     num_hash = Hash[array_of_workouts.uniq.map { |a| [a, array_of_workouts.count(a)] }]
     final = num_hash.map { |k, v| k if v == num_hash.values.max }
+  end
+
+
+  def most_popular_feeling
+    num_hash = Hash[array_of_feelings.uniq.map { |a| [a, array_of_feelings.count(a)] }]
+    final = num_hash.map { |k, v| k if v == num_hash.values.max }
+    final.compact
   end
 
   # joe = User.first.weight_journals.first
@@ -156,15 +173,15 @@ class WeightJournal < ActiveRecord::Base
 #     end
 # end
 
-  def most_popular_feeling
-    WeightJournal.where(id: self.id).first.posts.map do |post|
-      post.post_feelings.map do |pf|
-        pf
-      end
-    end.flatten.map do |pf|
-      Feeling.find(pf.feeling_id)
-    end
-  end
+  # def most_popular_feeling
+  #   WeightJournal.where(id: self.id).first.posts.map do |post|
+  #     post.post_feelings.map do |pf|
+  #       pf
+  #     end
+  #   end.flatten.map do |pf|
+  #     Feeling.find(pf.feeling_id)
+  #   end
+  # end
 
   def feelings_listed_in_order
     totals = WeightJournal.joins(:feelings).where(id: self.id).first.feelings.group(:feeling).count
