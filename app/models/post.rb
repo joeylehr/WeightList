@@ -20,7 +20,7 @@ class Post < ActiveRecord::Base
   has_many :post_workouts
   has_many :workouts, through: :post_workouts
 
-  validates :entry_date, :current_weight, :motivation_level, :post_workouts, :post_feelings, presence: true
+  validates :entry_date, :current_weight, :motivation_level, :post_feelings, presence: true
 
   # def self.index_for_a_specific_user
   #   @all_posts = Post.all
