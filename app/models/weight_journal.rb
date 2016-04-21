@@ -21,6 +21,7 @@ class WeightJournal < ActiveRecord::Base
   has_many :post_feelings, through: :posts
   has_many :feelings, through: :post_feelings
 
+  validates :title, :start_date, :starting_weight, :weight_goal, :final_weigh_in_date, presence: true
 
   def total_lbs_to_loose
     starting_weight.to_f - weight_goal.to_f
