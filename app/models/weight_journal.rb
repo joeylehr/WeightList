@@ -80,6 +80,10 @@ class WeightJournal < ActiveRecord::Base
     end.compact
   end
 
+  def most_recent_weight
+    Post.where(weight_journal_id: self.id).order(id: :desc).limit(1).first.current_weight
+  end
+
   def number_of_posts_that_worked_out
     Post.joins(:weight_journal).where(weight_journal_id: self.id).where(worked_out: true).count
   end
@@ -89,99 +93,10 @@ class WeightJournal < ActiveRecord::Base
      percentage = (worked_out*100) 
   end
 
-  # joe = Post.joins(:weight_journal).where(weight_journal_id: 1).where(worked_out: true)
-  # joe = Post.joins(:workouts).where(weight_journal_id: 1)
-  # joe = Post.joins(:workouts).where(weight_journal_id: 1).group("workout_type")
-  # Workout.joins(:posts).select('workouts.workout_type').where(weight_journal_id: 1).group("Workout.joins(:posts).select('workouts.workout_type').where(post.weight_journal_id: 1).group("workout_type")
-  # Post.joins(:workouts).where(weight_journal_id: 1).take(1)
-  # Workout.joins(:post).where(weight_journal_id: 1).take(1)
-  # Workout.joins(:posts).select("posts.weight_journal_id")
-
-    # WeightJournal.joins(:workouts)
-
-    # WeightJournal.joins(:workouts).where(id: 1)
-     # WeightJournal.joins(:post_workouts).where(id: 1).take(1)
-
-
-     # Post.joins(:weight_journal).take(1)
-
-# Post.joins(:workouts).take(1)
-
-
-
-# THESE WORK SORTA!:
-# Post.joins(:workouts).take(1).first.workouts.count
-
-# Post.joins(:workouts).where(weight_journal_id: 1).first.work
-
-# Post.joins(:workouts).where(weight_journal_id: 1).group(:workouts)
-
-# Post.joins(:workouts).first.workouts
-
-# WeightJournal.joins(:workouts).where(id: 1)
-
-# WeightJournal.joins(:workouts).where(id: 1).first
-
-# def most_popular_exercise_per_weight_journal
-#   binding.pry
-#   PostWorkout.where(workout_id: self.id).first.posts.map do |post|
-#     post.post_workouts.map do |pw|
-#       pw
-#     end
-#     end.flatten.map do | pw |
-#       Workout.find(pw.workout_id)
-#     end
-# end
-
-
-
-
-
-
-  # def most_popular_exercise_per_weight_journal
-  #   most_popular = PostWorkout.join
-
-  #   wj_posts = WeightJournal.joins(:post_workouts).where(id: 19)
-  #   wj_posts.map do |wj|
-
-
-  #   WeightJournal.joins(:workouts).where(user_id: self.id).first.workouts.group(:workout_type).count
-  #   final = most_popular.map { |k, v| k if v == most_popular.values.max }
-  #   final.compact.map do |id|
-  #     Workout.find(id)
-  #   end
-  # end
-
   def exercises_listed_in_order
     totals = WeightJournal.joins(:workouts).where(id: self.id).first.workouts.group(:workout_type).count
     total = totals.sort_by{|k,v| v}.reverse.to_h
   end
-
-  # TODO: simplify query
-  # def most_popular_feeling
-  #   totals = feelings.group(:feeling).count
-  #     max = totals.max_by {|k,v| v}
-  # end
-
-#   def most_popular_exercise_per_weight_journal
-#   WeightJournal.where(id: self.id).first.posts.map do |post|
-#     post.post_workouts.map do |pw|
-#       pw
-#     end
-#     end.flatten.map do | pw |
-#       Workout.find(pw.workout_id)
-#     end
-# end
-
-  # def most_popular_feeling
-  #   WeightJournal.where(id: self.id).first.posts.map do |post|
-  #     post.post_feelings.map do |pf|
-  #       pf
-  #     end
-  #   end.flatten.map do |pf|
-  #     Feeling.find(pf.feeling_id)
-  #   end
-  # end
 
   def feelings_listed_in_order
     totals = WeightJournal.joins(:feelings).where(id: self.id).first.feelings.group(:feeling).count

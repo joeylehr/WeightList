@@ -25,14 +25,16 @@
     <div class="row">
     <h1>current stats:</h1>
     <div class="col-md-4">
-    Total number of posts in journal: <%= @weight_journal.total_num_of_posts %> 
-    <br>most recent weight, total pounds lost
+    <strong>Total number of journal posts:</strong> <%= @weight_journal.total_num_of_posts %> 
+    <br><strong>Most recent weight:</strong> <%= @most_recent_weight %> lbs
     </div>
     <div class="col-md-4">
-    Past few posts:
+    <strong>Past few posts:</strong>
     <% @weight_journal.last_three_days_posts.reverse.map do |meow| %>
     (<%= link_to(meow.entry_date, weight_journal_post_path(@weight_journal, meow)) %>)
     <% end %>
+    <br>
+    <%= @weight_journal.starting_weight - @most_recent_weight %> lbs lost to date and <%= @most_recent_weight - @weight_journal.weight_goal %> lbs remaining to goal.
     </div>
 <% else %> 
   <div class="no_previous_posts">
