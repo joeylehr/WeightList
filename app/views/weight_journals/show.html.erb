@@ -29,9 +29,9 @@
     <br>most recent weight, total pounds lost
     </div>
     <div class="col-md-4">
-    Past few posts
-    <% @weight_journal.last_three_days_posts.map do |meow| %>
-    <%= link_to(meow.entry_date, weight_journal_post_path(@weight_journal, meow)) %>
+    Past few posts:
+    <% @weight_journal.last_three_days_posts.reverse.map do |meow| %>
+    (<%= link_to(meow.entry_date, weight_journal_post_path(@weight_journal, meow)) %>)
     <% end %>
     </div>
 <% else %> 
@@ -41,7 +41,7 @@
   </div>
   <br>
 
-<!-- ANALTICS  -->
+<!-- ANALYTICS  -->
 <% if @weight_journal.workouts.count >= 1 %>
   <div class="row">
   <h1>analytics:</h1>
@@ -57,14 +57,13 @@
    %>
    <%= workout %>
   <% end %>
-  <br>
+  <br><br>
     <strong>Total List of Workouts:</strong> 
     <% @weight_journal.exercises_listed_in_order.map do |k, v| %>
       <br> <%= k.capitalize %> : <%= v %> time(s)
     <% end %>
   </div>
   <% end %>
-
 <!-- ANALTICS FOR FEELINGS -->
   <% if @weight_journal.posts.count >= 1 %>
    <div class="col-md-6"> 
@@ -81,6 +80,8 @@
   </div>
 </div>
 <% end %>
+
+<br><br>
 
   <div class="footer" align="center">
   <% if @weight_journal.posts.count >= 1 %>

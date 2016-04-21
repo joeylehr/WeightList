@@ -58,8 +58,9 @@ class WeightJournal < ActiveRecord::Base
 
   # joe = User.first.weight_journals.first
   def last_three_days_posts
-    array = self.posts.where(entry_date: (Time.now.midnight - 3.day)..Time.now.midnight)
-    sorted = (array.sort_by &:entry_date).reverse
+    self.post_ids.map do |post_id|
+      Post.find(post_id)
+    end
   end
 
   def number_of_posts_that_worked_out
