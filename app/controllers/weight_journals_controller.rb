@@ -18,10 +18,8 @@ class WeightJournalsController < ApplicationController
 
   def show
     @weight_journal = WeightJournal.find(params[:id])
-    @wj_posts = @weight_journal.array_all_posts_of_a_weightjournal
-    @arr_workouts = @weight_journal.array_of_workouts(@wj_posts)
-    @most_pop_workout =  @weight_journal.most_popular_exercise_per_weight_journal(@arr_workouts).compact
-    binding.pry
+    @arr_workouts = @weight_journal.array_of_workouts
+    @most_popular_exercise = @weight_journal.most_popular_exercise
   end
 
   def edit

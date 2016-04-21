@@ -1,3 +1,8 @@
+<% if @post.errors.any? %>
+  <% @post.errors.full_messages.each do |message| %>
+     <li><%= message %></li>
+  <% end %>
+<% end %>
 <!-- if Time.day > @user.last day, flash message, this weight journal has closed, create a new one and redirect to /weight_journal/new-->
 <% if  DateTime.now.to_date > @weight_journal.final_weigh_in_date %>
   <!-- if @user.final_weigh_in_date > LAST POST WEIGH-in (use active record)
