@@ -58,9 +58,9 @@ class WeightJournal < ActiveRecord::Base
 
   # joe = User.first.weight_journals.first
   def last_three_days_posts
-    self.post_ids.map do |post_id|
+    self.post_ids[0..2].map do |post_id|
       Post.find(post_id)
-    end
+    end.compact
   end
 
   def number_of_posts_that_worked_out
