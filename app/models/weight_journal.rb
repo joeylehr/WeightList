@@ -66,6 +66,9 @@ class WeightJournal < ActiveRecord::Base
     final = num_hash.map { |k, v| k if v == num_hash.values.max }
   end
 
+  def workout_exist?
+    self.workouts.length > 0
+  end
 
   def most_popular_feeling
     num_hash = Hash[array_of_feelings.uniq.map { |a| [a, array_of_feelings.count(a)] }]
@@ -81,7 +84,7 @@ class WeightJournal < ActiveRecord::Base
   end
 
   def most_recent_weight
-    Post.where(weight_journal_id: self.id).order(id: :desc).limit(1).first.current_weight
+    Post.where(weight_journal_id: self.id).order(id: :desc).limit(1).first
   end
 
   def number_of_posts_that_worked_out

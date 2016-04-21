@@ -26,7 +26,7 @@
     <h1>current stats:</h1>
     <div class="col-md-4">
     <strong>Total number of journal posts:</strong> <%= @weight_journal.total_num_of_posts %> 
-    <br><strong>Most recent weight:</strong> <%= @most_recent_weight %> lbs
+    <br><strong>Most recent weight:</strong> <%= @most_recent_weight.current_weight %> 
     </div>
     <div class="col-md-4">
     <strong>Past few posts:</strong>
@@ -34,7 +34,7 @@
     (<%= link_to(meow.entry_date, weight_journal_post_path(@weight_journal, meow)) %>)
     <% end %>
     <br>
-    <%= @weight_journal.starting_weight - @most_recent_weight %> lbs lost to date and <%= @most_recent_weight - @weight_journal.weight_goal %> lbs remaining to goal.
+    <%= @weight_journal.starting_weight - @most_recent_weight.current_weight %> lbs lost to date and <%= @most_recent_weight.current_weight - @weight_journal.weight_goal %> remaining to goal.
     </div>
 <% else %> 
   <div class="no_previous_posts">
@@ -44,27 +44,31 @@
   <br>
 
 <!-- ANALYTICS  -->
-<% if @weight_journal.workouts.count >= 1 %>
+<% if @weight_journal.posts.count >= 1 %>
   <div class="row">
   <h1>analytics:</h1>
   
 <!-- ANALYTICS FOR WORKOUTS -->
+  <% if @weight_journal.workout_exist? %>
   <div class="col-md-6">
   <h2>workouts:</h2>
-  <strong>Percentage of times worked out:</strong><br>
-  Of <%= @weight_journal.posts.count %> post(s), you worked out %<%= @weight_journal.workouts_percentage.round(2) %> of the time
-  <br><br>
-  <strong>Most Popular Workout(s): </strong> 
-  <br><% @most_popular_exercise.map do |workout|
-   %>
-   <%= workout %>
-  <% end %>
-  <br><br>
-    <strong>Total List of Workouts:</strong> 
-    <% @weight_journal.exercises_listed_in_order.map do |k, v| %>
-      <br> <%= k.capitalize %> : <%= v %> time(s)
-    <% end %>
-  </div>
+        <strong>Percentage of times worked out:</strong><br>
+        Of <%= @weight_journal.posts.count %> post(s), you worked out %<%= @weight_journal.workouts_percentage.round(2) %> of the time
+        <br><br>
+
+        <strong>Most Popular Workout(s): </strong> 
+        <br><% @most_popular_exercise.map do |workout|
+         %>
+         <%= workout %>
+        <% end %>
+        <br><br>
+          <strong>Total List of Workouts:</strong> 
+          <% @weight_journal.exercises_listed_in_order.map do |k, v| %>
+            <br> <%= k.capitalize %> : <%= v %> time(s)
+          <% end %>
+        </div>
+        <% end %>
+
   <% end %>
 <!-- ANALTICS FOR FEELINGS -->
   <% if @weight_journal.posts.count >= 1 %>
