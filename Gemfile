@@ -31,6 +31,10 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'bootstrap-sass'
 
+group :production do
+  gem 'rails_12factor'
+end
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
