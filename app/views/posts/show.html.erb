@@ -1,6 +1,6 @@
 <h1><%= @user.full_name %> -- Below are your daily stats! </h1>
 
-<h2>Remember, you have <%= (@weight_journal.final_weigh_in_date - @post.entry_date).to_i%> day(s) left to reach your goal of <%= @weight_journal.weight_goal %> lbs! </h2>
+<h2>Remember, you have <%= (@weight_journal.final_weigh_in_date - @post.entry_date).to_i - 1 %> day(s) left to reach your goal of <%= @weight_journal.weight_goal %> lbs! </h2>
 
 <h3>Your original start date: <%= @weight_journal.start_date %> <br>Starting Weight: <%= @weight_journal.starting_weight%> <br>Today's entry date and weight: <%= @post.entry_date %> / <%= @post.current_weight %> lbs. </h3>
 
