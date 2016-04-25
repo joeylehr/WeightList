@@ -30,20 +30,16 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.all_completed_journals 
+    User.all.map do |user|
+      user.completed_journals
+    end.reject(&:empty?).flatten.sort
+  end
+
   def active_journal
     aj = weight_journals.reject do |wj|
       wj.final_weigh_in_date < (Date.today + 1)
     end
-  end
-
-  def number_of_posts
-    User.joins(:posts).where(id: self.id).count
-    # User.joins(:posts).first.posts
-  end
-
-  def self.number_of_posts #for admin
-    ## MOVE THIS TO JUST POST.COUNT
-    User.joins(:posts).count
   end
 
   def all_user_posts_where_motivated #include total number of posts / per journal
@@ -52,6 +48,23 @@ class User < ActiveRecord::Base
 
   def self.all_user_posts_where_motivated
     User.joins(:posts).where(id: self.id).count
+  end
+
+  def self.all_active_journals 
+    User.all.map do |user|
+      user.active_journals
+    end.reject(&:empty?).flatten.sort
+  end
+
+  def number_of_posts
+    ## MOVE THIS TO JUST POST.COUNT
+    User.joins(:posts).where(id: self.id).count
+    # User.joins(:posts).first.posts
+  end
+
+  def self.number_of_posts #for admin
+    ## MOVE THIS TO JUST POST.COUNT
+    User.joins(:posts).count
   end
 
   def posts_where_worked_out
@@ -64,16 +77,13 @@ class User < ActiveRecord::Base
     #use take to do limit 5 also need where journals are completed
   end
 
-  
+  def self.all_weight_goals
+  end
 
 ### THE TWO BELOW CLASS METHODS MIGHT NOT BE NECESSARY 
 ##AS WE SHOULD BE CALLING IT ON THE WEIGHTJOURNAL MODEL**
 
-  def self.all_completed_journals 
-    User.all.map do |user|
-      user.completed_journals
-    end.reject(&:empty?).flatten.sort
-  end
+
 
 
   # def self.all_completed_journals 
@@ -83,21 +93,14 @@ class User < ActiveRecord::Base
   # end
 
 
-  def self.all_active_journals 
-    User.all.map do |user|
-      user.active_journals
-    end.reject(&:empty?).flatten.sort
-  end
-
   # def reached_weight_goal
   #   if journal_completed
 
   # end
-  def self.all_weight_goals
-  end
 
-  def self.actual_completed_goals
-  end
+
+  # def self.actual_completed_goals
+  # end
   # def self.reach_weight_goal
   # end
 

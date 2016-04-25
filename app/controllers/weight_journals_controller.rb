@@ -30,7 +30,7 @@ class WeightJournalsController < ApplicationController
   end
 
   def update 
-    find_weight_journal
+    @weight_journal = WeightJournal.find(params[:id])
     if @weight_journal.update(wj_params)
       redirect_to @weight_journal
     else

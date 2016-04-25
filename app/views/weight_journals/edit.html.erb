@@ -1,5 +1,20 @@
+<% if @weight_journal.errors.any? %>
+  <% @weight_journal.errors.full_messages.each do |message| %>
+     <li><%= message %></li>
+  <% end %>
+<% end %>
+
 <%= form_for @weight_journal do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title %>
+  <p><%= f.label :weight_journal_title %></p>
+  <p><%= f.text_field :title %></p>
+  <p><%= f.label :start_date %> </p>
+  <p><%= f.date_field :start_date %> </p>
+  <p><%= f.label :starting_weight %> </p>
+  <p><%= f.number_field :starting_weight, :placeholder => "in lbs..." %> </p>
+  <p><%= f.label :weight_goal %> </p>
+  <p><%= f.number_field :weight_goal, :placeholder => "in lbs..." %> </p>
+  <p><%= f.label :final_weigh_in_date %> </p>
+  <p><%= f.date_field :final_weigh_in_date %> </p>
   <%= f.submit %>
 <% end %>
+

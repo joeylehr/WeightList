@@ -41,6 +41,7 @@ class WeightJournal < ActiveRecord::Base
     Post.where(weight_journal_id: self.id).count
   end
 
+ 
   def array_of_workouts
     array = []
     self.post_ids.each do |post_id|
@@ -51,6 +52,16 @@ class WeightJournal < ActiveRecord::Base
     end
   end
 
+ def most_popular_exercise
+    num_hash = Hash[array_of_workouts.uniq.map { |a| [a, array_of_workouts.count(a)] }]
+    final = num_hash.map { |k, v| k if v == num_hash.values.max }
+    final.compact
+  end
+
+  def workout_exist?
+    self.workouts.length > 0
+  end
+
   def array_of_feelings
     array = []
     self.post_ids.each do |post_id|
@@ -59,15 +70,6 @@ class WeightJournal < ActiveRecord::Base
       array.flatten.map do |w|
         Feeling.find(w.feeling_id).feeling
     end
-  end
-
- def most_popular_exercise
-    num_hash = Hash[array_of_workouts.uniq.map { |a| [a, array_of_workouts.count(a)] }]
-    final = num_hash.map { |k, v| k if v == num_hash.values.max }
-  end
-
-  def workout_exist?
-    self.workouts.length > 0
   end
 
   def most_popular_feeling

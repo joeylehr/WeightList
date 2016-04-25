@@ -32,13 +32,13 @@
 
     <p><%= f.label "Current Weight" %>
     <%= f.number_field :current_weight %></p>
-      <div class="exercised">
-      <p><%= f.label "Worked Out?" %>
-    <%= f.check_box :worked_out %></p>
-      </div>
     <p><%= f.label "Motivational Level (1-10)" %>
     <%= f.number_field :motivation_level, in: 1..10 %></p>
-      <div class="exercises">
+    <div class="exercised">
+    <p><%= f.label "Worked Out?" %>
+    <%= f.check_box :worked_out %></p>
+    </div>
+    <div class="exercises">
     <p><%= f.label "What workout did you complete today?" %> <br>
     <%= f.collection_check_boxes(:workout_ids, Workout.all, :id, :workout_type) %></p>
       </div>
