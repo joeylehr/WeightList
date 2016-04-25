@@ -55,12 +55,14 @@
   padding-top: 1em;
 }
 
-.col-md-6 {
-  text-align: center;
-}
-
 .container { white-space: nowrap; }
 .journals { display: inline-block; width: 50%; white-space: normal; }
+
+
+label {
+    padding-right: 20px;
+    margin-left: 5px;
+}
 
 
 input[type="checkbox"] {
@@ -71,7 +73,6 @@ input[type="checkbox"] {
   -webkit-appearance:button;
 
   border: double 2px #00F;
-  background-color: white;
   width:15px;
   height:15px;
 }
