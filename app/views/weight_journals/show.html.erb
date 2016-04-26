@@ -34,7 +34,7 @@
     </div>
     <div class="col-md-4">
     <strong>Lbs per day:</strong>
-    <%= (@most_recent_weight.current_weight - @weight_journal.weight_goal)/ ((@weight_journal.final_weigh_in_date - DateTime.now).to_i + 1).round(2) %>
+    <%= ((@most_recent_weight.current_weight - @weight_journal.weight_goal)/ ((@weight_journal.final_weigh_in_date - DateTime.now).to_i + 1).round(2)).to_s[0..3] %>
     <br>
     <%= @weight_journal.starting_weight - @most_recent_weight.current_weight %> lbs under original weight and <%= @most_recent_weight.current_weight - @weight_journal.weight_goal %> lbs remaining to goal.
     </div>
