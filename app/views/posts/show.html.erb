@@ -10,7 +10,7 @@
 <% elsif @weight_journal.weight_goal > @post.current_weight %>
      <%= @user.first_name %>, YOU'RE A BEAST! You're blowing pass you're original weight goal!  
 <% elsif @weight_journal.starting_weight > @post.current_weight %>
-    Great job <%= @user.first_name %>! You lost <%= @weight_journal.starting_weight - @post.current_weight %> lb(s) so far and only have to loose <%= @post.current_weight - @weight_journal.weight_goal %> more!
+    Great job <%= @user.first_name %>! You're <%= @weight_journal.starting_weight - @post.current_weight %> lb(s) under your goal  and only have to lose <%= @post.current_weight - @weight_journal.weight_goal %> more!
 <% elsif @weight_journal.starting_weight == @post.current_weight %>
      <%= @user.first_name %>, let's focus and try to get a few pounds off in the next few days!   
 <% else %>

@@ -27,6 +27,7 @@
     <% if !@weight_journal.nil? && current_page?(controller: 'weight_journals', action: "show", id: "#{@weight_journal.id}") %>
         <li>Currently Working on: <%= @weight_journal.title %></li>
         <li><%= link_to "New Post", new_weight_journal_post_path(@weight_journal) %> </li>
+        <li><%= link_to "Edit", edit_weight_journal_path(@weight_journal) %></li>
     <% end %>
 
     <% if params.include?(:weight_journal_id)  && current_page?(new_weight_journal_post_path(@weight_journal)) %>
@@ -36,6 +37,8 @@
     <% if (params.include?(:weight_journal_id) && params.include?(:id)) &&
       current_page?(weight_journal_post_path(params[:weight_journal_id], params[:id])) %>
         <li>Currently Working on: <%= link_to @weight_journal.title, @weight_journal %> </li>
+        <li><%= link_to "Edit", edit_weight_journal_post_path(@weight_journal, @post) %></li>
+        <li><%= link_to "Delete", weight_journal_post_path(@weight_journal, @post), :method => "delete", :data => {:confirm => 'Are you sure?'} %></li>
     <% end %>
   </ul>
 

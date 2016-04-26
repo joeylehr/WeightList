@@ -52,6 +52,10 @@ class PostsController < ApplicationController
   end
 
   def destroy
+    @post = Post.find(params[:id])
+    @weightjournal = WeightJournal.find(params[:weight_journal_id])
+    @post.destroy
+    redirect_to @weightjournal
   end
 
   #HELPER METHODS
