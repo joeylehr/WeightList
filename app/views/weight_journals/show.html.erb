@@ -28,7 +28,7 @@
     <strong>Total number of journal posts:</strong> <%= @weight_journal.total_num_of_posts %> 
     <br><strong>Most recent weight:</strong> <%= @most_recent_weight.current_weight %> 
     <br><br><strong>Past few posts:</strong>
-    <% @weight_journal.last_three_days_posts.reverse.map do |meow| %>
+    <% @weight_journal.last_three_days_posts.map do |meow| %>
     (<%= link_to(meow.entry_date, weight_journal_post_path(@weight_journal, meow)) %>)
     <% end %>
     </div>

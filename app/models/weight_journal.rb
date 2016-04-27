@@ -80,10 +80,17 @@ class WeightJournal < ActiveRecord::Base
 
   # joe = User.first.weight_journals.first
   def last_three_days_posts
-    self.post_ids[0..2].map do |post_id|
+    three_day_array = self.posts.sort_by { |post| post.entry_date }.reverse[0..2]
+    three_day_array.map do |post_id|
       Post.find(post_id)
     end.compact
   end
+
+  # def last_three_days_posts
+  #   self.post_ids[0..2].map do |post_id|
+  #     Post.find(post_id)
+  #   end.compact
+  # end
 
   def most_recent_weight
     Post.where(weight_journal_id: self.id).order(id: :desc).limit(1).first
