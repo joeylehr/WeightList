@@ -50,4 +50,11 @@ describe 'WeightJournal' do
     end
   end
 
+  describe '#workouts_percentage' do 
+    it 'can show percentage of posts that included a workout' do 
+      
+    end
+  end
+
+
 end

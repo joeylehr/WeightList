@@ -37,6 +37,66 @@ describe 'User' do
     end
   end
 
+  describe '#percentage_highly_motivated_posts' do 
+    it 'can show all posts from all wjs that include a high level of motivation' do 
+      user = User.create(first_name: "Joey", last_name: "Chuckles", birth_date: "2016-04-26", email: "joey@chuckles.com", password: "abc123", password_confirmation: "abc123")
+      WeightJournal.where(user_id: 2).map {|wj| wj.posts}.flatten.count
+      wj1 = WeightJournal.create(title: "First Journal", user_id: 1, start_date: "2016-04-24", final_weigh_in_date: "2016-05-10", starting_weight: 221, weight_goal: 200)
+      wj2 = WeightJournal.create(title: "Second Journal", user_id: 1, start_date: "2016-04-14", final_weigh_in_date: "2016-04-20", starting_weight: 201, weight_goal: 190)
+      feeling = Feeling.create(feeling: "amazing!")
+      p1 = Post.create(entry_date: "2016-03-24", current_weight: 210, worked_out: true, motivation_level: 1, weight_journal_id: 1, notes: "yeehaw!", feeling_ids: [1])
+      p2 = Post.create(entry_date: "2016-03-26", current_weight: 208, worked_out: true, motivation_level: 3, weight_journal_id: 1, notes: "huzzah!", feeling_ids: [1])
+      p3 = Post.create(entry_date: "2016-03-25", current_weight: 206, worked_out: true, motivation_level: 9, weight_journal_id: 1, notes: "meow!", feeling_ids: [1])
+      p4 = Post.create(entry_date: "2016-03-27", current_weight: 205, worked_out: true, motivation_level: 7, weight_journal_id: 1, notes: "meep!", feeling_ids: [1])
+      expect(user.percentage_highly_motivated_posts).to eq(50)
+    end
+  end
+
+  describe '#percentage_mid_motivated_posts' do 
+    it 'can show all posts from all wjs that include a high level of motivation' do 
+      user = User.create(first_name: "Joey", last_name: "Chuckles", birth_date: "2016-04-26", email: "joey@chuckles.com", password: "abc123", password_confirmation: "abc123")
+      WeightJournal.where(user_id: 2).map {|wj| wj.posts}.flatten.count
+      wj1 = WeightJournal.create(title: "First Journal", user_id: 1, start_date: "2016-04-24", final_weigh_in_date: "2016-05-10", starting_weight: 221, weight_goal: 200)
+      wj2 = WeightJournal.create(title: "Second Journal", user_id: 1, start_date: "2016-04-14", final_weigh_in_date: "2016-04-20", starting_weight: 201, weight_goal: 190)
+      feeling = Feeling.create(feeling: "amazing!")
+      p1 = Post.create(entry_date: "2016-03-24", current_weight: 210, worked_out: true, motivation_level: 1, weight_journal_id: 1, notes: "yeehaw!", feeling_ids: [1])
+      p2 = Post.create(entry_date: "2016-03-26", current_weight: 208, worked_out: true, motivation_level: 5, weight_journal_id: 1, notes: "huzzah!", feeling_ids: [1])
+      p3 = Post.create(entry_date: "2016-03-25", current_weight: 206, worked_out: true, motivation_level: 9, weight_journal_id: 1, notes: "meow!", feeling_ids: [1])
+      p4 = Post.create(entry_date: "2016-03-27", current_weight: 205, worked_out: true, motivation_level: 7, weight_journal_id: 1, notes: "meep!", feeling_ids: [1])
+      expect(user.percentage_mid_motivated_posts).to eq(25)
+    end
+  end
+
+  describe '#percentage_mid_motivated_posts' do 
+    it 'can show all posts from all wjs that include a high level of motivation' do 
+      user = User.create(first_name: "Joey", last_name: "Chuckles", birth_date: "2016-04-26", email: "joey@chuckles.com", password: "abc123", password_confirmation: "abc123")
+      WeightJournal.where(user_id: 2).map {|wj| wj.posts}.flatten.count
+      wj1 = WeightJournal.create(title: "First Journal", user_id: 1, start_date: "2016-04-24", final_weigh_in_date: "2016-05-10", starting_weight: 221, weight_goal: 200)
+      wj2 = WeightJournal.create(title: "Second Journal", user_id: 1, start_date: "2016-04-14", final_weigh_in_date: "2016-04-20", starting_weight: 201, weight_goal: 190)
+      feeling = Feeling.create(feeling: "amazing!")
+      p1 = Post.create(entry_date: "2016-03-24", current_weight: 210, worked_out: true, motivation_level: 1, weight_journal_id: 1, notes: "yeehaw!", feeling_ids: [1])
+      p2 = Post.create(entry_date: "2016-03-26", current_weight: 208, worked_out: true, motivation_level: 5, weight_journal_id: 1, notes: "huzzah!", feeling_ids: [1])
+      p3 = Post.create(entry_date: "2016-03-25", current_weight: 206, worked_out: true, motivation_level: 9, weight_journal_id: 1, notes: "meow!", feeling_ids: [1])
+      p4 = Post.create(entry_date: "2016-03-27", current_weight: 205, worked_out: true, motivation_level: 7, weight_journal_id: 1, notes: "meep!", feeling_ids: [1])
+      expect(user.percentage_mid_motivated_posts).to eq(25)
+    end
+  end
+
+  describe '#percentage_low_motivated_posts' do 
+    it 'can show all posts from all wjs that include a high level of motivation' do 
+      user = User.create(first_name: "Joey", last_name: "Chuckles", birth_date: "2016-04-26", email: "joey@chuckles.com", password: "abc123", password_confirmation: "abc123")
+      WeightJournal.where(user_id: 2).map {|wj| wj.posts}.flatten.count
+      wj1 = WeightJournal.create(title: "First Journal", user_id: 1, start_date: "2016-04-24", final_weigh_in_date: "2016-05-10", starting_weight: 221, weight_goal: 200)
+      wj2 = WeightJournal.create(title: "Second Journal", user_id: 1, start_date: "2016-04-14", final_weigh_in_date: "2016-04-20", starting_weight: 201, weight_goal: 190)
+      feeling = Feeling.create(feeling: "amazing!")
+      p1 = Post.create(entry_date: "2016-03-24", current_weight: 210, worked_out: true, motivation_level: 1, weight_journal_id: 1, notes: "yeehaw!", feeling_ids: [1])
+      p2 = Post.create(entry_date: "2016-03-26", current_weight: 208, worked_out: true, motivation_level: 2, weight_journal_id: 1, notes: "huzzah!", feeling_ids: [1])
+      p3 = Post.create(entry_date: "2016-03-25", current_weight: 206, worked_out: true, motivation_level: 3, weight_journal_id: 1, notes: "meow!", feeling_ids: [1])
+      p4 = Post.create(entry_date: "2016-03-27", current_weight: 205, worked_out: true, motivation_level: 7, weight_journal_id: 1, notes: "meep!", feeling_ids: [1])
+      expect(user.percentage_low_motivated_posts).to eq(75)
+    end
+  end
+
   describe 'class methods' do 
     describe '.all_active_journals' do 
       it 'can show all active journals' do
@@ -61,8 +121,7 @@ describe 'User' do
         expect(User.all_completed_journals.count).to eq(2) 
       end
     end
-
-
+  
   end 
 
 

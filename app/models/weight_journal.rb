@@ -41,7 +41,6 @@ class WeightJournal < ActiveRecord::Base
     Post.where(weight_journal_id: self.id).count
   end
 
- 
   def array_of_workouts
     array = []
     self.post_ids.each do |post_id|
@@ -152,5 +151,6 @@ class WeightJournal < ActiveRecord::Base
       wj.final_weigh_in_date < (Date.today + 1)
     end
   end
+
 
 end

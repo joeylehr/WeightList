@@ -80,6 +80,24 @@ class User < ActiveRecord::Base
   def self.all_weight_goals
   end
 
+  def percentage_highly_motivated_posts
+    all_posts = WeightJournal.where(user_id: self.id).map {|wj| wj.posts}.flatten
+    highly_motivated = all_posts.select {|wj| wj.motivation_level >= 7}
+    percentage = (highly_motivated.count / all_posts.count.to_f) * 100
+  end
+
+  def percentage_mid_motivated_posts
+    all_posts = WeightJournal.where(user_id: self.id).map {|wj| wj.posts}.flatten
+    mid_motivated = all_posts.select {|wj| wj.motivation_level < 7 && wj.motivation_level >= 4 }
+    percentage = (mid_motivated.count / all_posts.count.to_f) * 100
+  end
+
+  def percentage_low_motivated_posts
+    all_posts = WeightJournal.where(user_id: self.id).map {|wj| wj.posts}.flatten
+    low_motivated = all_posts.select {|wj| wj.motivation_level < 4 && wj.motivation_level >= 1 }
+    percentage = (low_motivated.count / all_posts.count.to_f) * 100
+  end
+
 ### THE TWO BELOW CLASS METHODS MIGHT NOT BE NECESSARY 
 ##AS WE SHOULD BE CALLING IT ON THE WEIGHTJOURNAL MODEL**
 
