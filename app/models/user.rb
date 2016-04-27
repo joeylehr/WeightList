@@ -42,9 +42,9 @@ class User < ActiveRecord::Base
     end
   end
 
-  def all_user_posts_where_motivated #include total number of posts / per journal
-    User.joins(:posts).where(id: self.id).count
-  end
+  # def all_user_posts_where_motivated #include total number of posts / per journal
+  #   User.joins(:posts).where(id: self.id).count
+  # end
 
   def self.all_user_posts_where_motivated
     User.joins(:posts).where(id: self.id).count
@@ -54,12 +54,6 @@ class User < ActiveRecord::Base
     User.all.map do |user|
       user.active_journals
     end.reject(&:empty?).flatten.sort
-  end
-
-  def number_of_posts
-    ## MOVE THIS TO JUST POST.COUNT
-    User.joins(:posts).where(id: self.id).count
-    # User.joins(:posts).first.posts
   end
 
   def self.number_of_posts #for admin
@@ -98,6 +92,23 @@ class User < ActiveRecord::Base
     percentage = (low_motivated.count / all_posts.count.to_f) * 100
   end
 
+  def number_of_posts
+    User.find(self.id).posts.count
+  end
+
+  def num_of_times_worked_out
+    posts_arr = User.find(self.id).posts
+    posts_arr.select {|post| post.worked_out == true}.count
+  end
+
+  def percentage_of_times_worked_out
+    num_of_times_worked_out.to_f / number_of_posts 
+  end
+
+
+
+# Percentage of times worked
+# quick view stats
 
 ### THE TWO BELOW CLASS METHODS MIGHT NOT BE NECESSARY 
 ##AS WE SHOULD BE CALLING IT ON THE WEIGHTJOURNAL MODEL**
