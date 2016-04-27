@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
     end.reject(&:empty?).flatten.sort
   end
 
-  def active_journal
+  def active_journals
     aj = weight_journals.reject do |wj|
       wj.final_weigh_in_date < (Date.today + 1)
     end
