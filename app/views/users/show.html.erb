@@ -34,21 +34,27 @@
   <div class="calculator" >
   <%= image_tag("bigcalculator.png", :id => "bigcalculator") %> <br> (click me!)
   </div>
+
   <div class="journals-stats">
+
   <div class="col-md-4" id="overall-workout-stats">
     <h3><%= image_tag("dumbbells-exercise.png", :id => "exercise") %>workout stats:</h3>
-    <%=  %>
+    Exercised <%= @user.percentage_of_times_worked_out.to_s[0..4] %>% of the time<br>
   </div>
+
   <div class="col-md-4" id="overall-feeling-stats">
     <h3><%= image_tag("smile.png", :id => "smile") %> feelings stats: <%= image_tag("smile2.png", :id => "smile") %></h3>
     Highly Motivated: <%= @user.percentage_highly_motivated_posts.to_s[0..4] %>%<br>
     Mid Motivated: <%= @user.percentage_mid_motivated_posts.to_s[0..4] %>%<br>
     Meh Motivated: <%= @user.percentage_low_motivated_posts.to_s[0..4] %>%<br>
   </div>
+
   <div class="col-md-4" id="overall-weight-stats">
     <h3><%= image_tag("avocado.png", :id => "avocado") %>weight stats:</h3>
-    <%=  %>
-  </div>  
+    Total lbs lost <br>
+    Goals achieved
+  </div>
+
   </div>
 </div>
 

@@ -102,7 +102,7 @@ class User < ActiveRecord::Base
   end
 
   def percentage_of_times_worked_out
-    num_of_times_worked_out.to_f / number_of_posts 
+    num_of_times_worked_out.to_f / number_of_posts * 100 
   end
 
 
