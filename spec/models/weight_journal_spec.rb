@@ -20,7 +20,6 @@ describe 'WeightJournal' do
   describe "#total_days_of_diet" do 
     it 'can show a duration' do
       wj = WeightJournal.create(title: "Test Journal", start_date: "2016-04-04", final_weigh_in_date: "2016-04-10")
-      total_days_of_diet = ((wj.final_weigh_in_date - wj.start_date).to_i) + 1
       expect(wj.total_days_of_diet).to eq(7)
     end
   end
@@ -28,7 +27,6 @@ describe 'WeightJournal' do
   describe "#total_lbs_to_loose" do 
     it 'can show the total lbs to lose to hit goal' do
       wj = WeightJournal.create(title: "Test Journal", start_date: "2016-04-04", final_weigh_in_date: "2016-04-10", starting_weight: 221, weight_goal: 200)
-      total_lbs_to_loose = (wj.starting_weight.to_f - wj.weight_goal.to_f)
       expect(wj.total_lbs_to_loose).to eq(21)
     end
   end
@@ -36,9 +34,6 @@ describe 'WeightJournal' do
   describe "#avg_weight_to_loose_a_day_to_hit_goal" do 
     it 'can show the average weight to lose per day to hit goal' do
       wj = WeightJournal.create(title: "Test Journal", start_date: "2016-04-04", final_weigh_in_date: "2016-04-10", starting_weight: 221, weight_goal: 200)
-      total_lbs_to_loose = wj.starting_weight.to_f - wj.weight_goal.to_f
-      total_days_of_diet = ((wj.final_weigh_in_date - wj.start_date).to_i) + 1
-      avg_weight_to_loose_a_day_to_hit_goal = (total_lbs_to_loose / total_days_of_diet).round(2)
       expect(wj.avg_weight_to_loose_a_day_to_hit_goal).to eq(3)
     end
   end
@@ -51,8 +46,7 @@ describe 'WeightJournal' do
       p2 = Post.create(entry_date: "2016-03-26", current_weight: 208, worked_out: true, motivation_level: 7, weight_journal_id: 1, notes: "huzzah!", feeling_ids: [1])
       p3 = Post.create(entry_date: "2016-03-25", current_weight: 206, worked_out: true, motivation_level: 9, weight_journal_id: 1, notes: "meow!", feeling_ids: [1])
       p4 = Post.create(entry_date: "2016-03-27", current_weight: 205, worked_out: true, motivation_level: 7, weight_journal_id: 1, notes: "meep!", feeling_ids: [1])
-      last_three_days_posts = (wj.posts.sort_by { |post| post.entry_date }.reverse[0..2]).map(&:id)
-      expect(last_three_days_posts).to match([4, 2, 3])
+      expect(wj.last_three_days_posts.map {|post| post.id }).to match([4, 2, 3])
     end
   end
 

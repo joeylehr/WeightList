@@ -82,8 +82,8 @@ class WeightJournal < ActiveRecord::Base
   def last_three_days_posts
     three_day_array = self.posts.sort_by { |post| post.entry_date }.reverse[0..2]
     three_day_array.map do |post_id|
-      Post.find(post_id)
-    end.compact
+      Post.find(post_id.id)
+    end
   end
 
   # def last_three_days_posts
