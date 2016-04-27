@@ -98,6 +98,7 @@ class User < ActiveRecord::Base
     percentage = (low_motivated.count / all_posts.count.to_f) * 100
   end
 
+
 ### THE TWO BELOW CLASS METHODS MIGHT NOT BE NECESSARY 
 ##AS WE SHOULD BE CALLING IT ON THE WEIGHTJOURNAL MODEL**
 

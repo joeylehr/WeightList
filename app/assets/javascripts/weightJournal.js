@@ -1,4 +1,4 @@
-$(document).on('ready page:load', function(){
+$(document).on('ready', function(){
   $(".exercises").hide();
   $("body").on('click', "[name='post[worked_out]']", function(){
     $(".exercises").toggle();

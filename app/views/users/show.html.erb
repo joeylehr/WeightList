@@ -12,10 +12,10 @@
   <%= link_to("Create a New Journal!", new_weight_journal_path) %>
   </div>
 <div class="container">
-<div class="row">
-<div class="col-md-6">
+  <div class="row">
+    <div class="col-md-6">
   <h2>Active Journal(s):</h2>
-  <% @user.active_journal.each do |j| %>
+  <% @user.active_journals.each do |j| %>
   <%= link_to(j.title, weight_journal_path(j)) %>
   <br>
   <% end %>
@@ -28,9 +28,32 @@
   <% end %>
   </div>
 </div>
+<br><br>
+<div class="col-md-12">
+  <h2>Overall Stats: </h2>
+  <div class="calculator" >
+  <%= image_tag("bigcalculator.png", :id => "bigcalculator") %> <br> (click me!)
+  </div>
+  <div class="journals-stats">
+  <div class="col-md-4" id="overall-workout-stats">
+    <h3><%= image_tag("dumbbells-exercise.png", :id => "exercise") %>workout stats:</h3>
+    <%=  %>
+  </div>
+  <div class="col-md-4" id="overall-feeling-stats">
+    <h3><%= image_tag("smile.png", :id => "smile") %> feelings stats: <%= image_tag("smile2.png", :id => "smile") %></h3>
+    Highly Motivated: <%= @user.percentage_highly_motivated_posts.to_s[0..4] %>%<br>
+    Mid Motivated: <%= @user.percentage_mid_motivated_posts.to_s[0..4] %>%<br>
+    Meh Motivated: <%= @user.percentage_low_motivated_posts.to_s[0..4] %>%<br>
+  </div>
+  <div class="col-md-4" id="overall-weight-stats">
+    <h3><%= image_tag("avocado.png", :id => "avocado") %>weight stats:</h3>
+    <%=  %>
+  </div>  
+  </div>
+</div>
 
   <div class="footer">
-  Total Active Journals: <%= @user.active_journal.count %>
+  Total Active Journals: <%= @user.active_journals.count %>
   &nbsp; &nbsp; &nbsp; &nbsp;
   Total Completed Journals: <%= @user.completed_journals.count %>
   &nbsp; &nbsp; &nbsp; &nbsp;
