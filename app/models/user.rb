@@ -111,13 +111,19 @@ class User < ActiveRecord::Base
     end.sum
   end
 
+  def goals_achieved
+    self.weight_journals.select do |wj|
+      wj.weight_goal >= wj.most_recent_weight.current_weight
+    end.count
+  end
+
   def current_streak
     # arr = User.last.weight_journals.map {|wj| wj.posts}
     # hash = Hash[arr.collect { |item| [item[:entry_date], item[:worked_out]] } ]
   end
 
 # goals achieved
-# quick view stats
+# quick view stats / pounds remaining / old posts stats 
 
 ### THE TWO BELOW CLASS METHODS MIGHT NOT BE NECESSARY 
 ##AS WE SHOULD BE CALLING IT ON THE WEIGHTJOURNAL MODEL**
