@@ -28,7 +28,7 @@
   <% end %>
   </div>
 </div>
-<br><br>
+<br>
 <div class="col-md-12">
   <h2>Overall Stats: </h2>
   <div class="calculator" >
@@ -54,14 +54,14 @@
   <div class="col-md-4" id="overall-weight-stats">
     <h3><%= image_tag("avocado.png", :id => "avocado") %>weight stats:</h3>
     <% if @user.total_weight_loss > 0 %>
-      Total lost: <%= @user.total_weight_loss %> lbs! 
+      Total Lost: <%= @user.total_weight_loss %> lbs! 
     <% elsif @user.total_weight_loss < 0 %>
       Total lbs gained: <%= @user.total_weight_loss.abs %>
     <% else %>
       No weight loss!
     <% end %>
     <br>
-    Goals achieved
+    Weight Goals Achieved: <%= @user.goals_achieved %>
   </div>
 
   </div>
