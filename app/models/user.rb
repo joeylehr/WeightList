@@ -105,9 +105,18 @@ class User < ActiveRecord::Base
     num_of_times_worked_out.to_f / number_of_posts * 100 
   end
 
+  def total_weight_loss
+    self.weight_journals.map do |wj|
+      wj.starting_weight - wj.most_recent_weight.current_weight
+    end.sum
+  end
 
+  def current_streak
+    # arr = User.last.weight_journals.map {|wj| wj.posts}
+    # hash = Hash[arr.collect { |item| [item[:entry_date], item[:worked_out]] } ]
+  end
 
-# Percentage of times worked
+# goals achieved
 # quick view stats
 
 ### THE TWO BELOW CLASS METHODS MIGHT NOT BE NECESSARY 

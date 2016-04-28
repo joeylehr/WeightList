@@ -92,7 +92,7 @@ class WeightJournal < ActiveRecord::Base
   # end
 
   def most_recent_weight
-    Post.where(weight_journal_id: self.id).order(id: :desc).limit(1).first
+    Post.where(weight_journal_id: self.id).order(entry_date: :desc).limit(1).first
   end
 
   def number_of_posts_that_worked_out

@@ -1,11 +1,12 @@
 <h1><%= @user.full_name %> -- Total Posts</h1>
-
-
+<h2>Starting Weight: <%= @weight_journal.starting_weight %></h2>
+<h2>Weight Goal:<%= @weight_journal.weight_goal %></h2>
+<br>
 <ul>
-  <% @user_posts.map do |post| %> 
+  <% @user_posts.sort_by {|post| post.entry_date}.reverse.map do |post| %> 
     <p>
     <li>Entry Date: <%= post.entry_date %> <br>
-    Worked out: <%= post.worked_out? %> <br>
+    Entered Weight: <%= post.current_weight %> <br>
     Motivation Level: <%= post.motivation_level%> <br>
     <%= link_to("View entry post", weight_journal_post_path(@weight_journal, post)) %>  </li> </p> 
   <% end %>
