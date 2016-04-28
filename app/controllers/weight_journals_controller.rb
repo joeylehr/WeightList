@@ -23,6 +23,7 @@ class WeightJournalsController < ApplicationController
     @arr_feelings = @weight_journal.array_of_feelings
     @most_popular_feeling = @weight_journal.most_popular_feeling
     @most_recent_weight = @weight_journal.most_recent_weight
+    
   end
 
   def edit
@@ -39,6 +40,12 @@ class WeightJournalsController < ApplicationController
   end
 
   def destroy
+  end
+
+  def quick_view
+    binding.pry
+    @weight_journal = WeightJournal.find(params[:id])
+    render json: @weight_journal
   end
 
   private 

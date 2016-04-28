@@ -25,8 +25,9 @@ class User < ActiveRecord::Base
   end
 
   def completed_journals
+    # binding.pry
     cj = weight_journals.select do |wj|
-      wj.final_weigh_in_date < (Date.today + 1)
+      wj.final_weigh_in_date + 1 <= (Date.today)
     end
   end
 
@@ -38,7 +39,7 @@ class User < ActiveRecord::Base
 
   def active_journals
     aj = weight_journals.reject do |wj|
-      wj.final_weigh_in_date < (Date.today + 1)
+      wj.final_weigh_in_date + 1 <= (Date.today)
     end
   end
 

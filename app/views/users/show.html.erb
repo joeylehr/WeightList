@@ -16,8 +16,10 @@
     <div class="col-md-6">
   <h2>Active Journal(s):</h2>
   <% @user.active_journals.each do |j| %>
+   <div class="magnifying-glass" id="<%= j.id %>">
+  <%= image_tag("magnifying-glass.png", :id => "#{j.id}") %> 
   <%= link_to(j.title, weight_journal_path(j)) %>
-  <br>
+  </div>
   <% end %>
   </div>
   <div class="col-md-6">
@@ -40,7 +42,7 @@
   <div class="col-md-4" id="overall-workout-stats">
     <h3><%= image_tag("dumbbells-exercise.png", :id => "exercise") %>workout stats:</h3>
     Exercised <%= @user.percentage_of_times_worked_out.to_s[0..4] %>% of the time<br>
-    favorite workout + % of time
+    <!-- favorite workout + % of time -->
   </div>
 
   <div class="col-md-4" id="overall-feeling-stats">
@@ -48,7 +50,7 @@
     Highly Motivated: <%= @user.percentage_highly_motivated_posts.to_s[0..4] %>%<br>
     Mid Motivated: <%= @user.percentage_mid_motivated_posts.to_s[0..4] %>%<br>
     Meh Motivated: <%= @user.percentage_low_motivated_posts.to_s[0..4] %>%<br>
-    most popular feeling while dieting
+    <!-- most popular feeling while dieting -->
   </div>
 
   <div class="col-md-4" id="overall-weight-stats">
