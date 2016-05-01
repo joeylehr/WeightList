@@ -20,8 +20,25 @@ class WeightJournal < ActiveRecord::Base
   has_many :workouts, through: :posts
   has_many :post_feelings, through: :posts
   has_many :feelings, through: :post_feelings
-
+  
   validates :title, :start_date, :starting_weight, :weight_goal, :final_weigh_in_date, presence: true
+  validate :start_date_earlier, :weight_checker
+
+  def start_date_earlier
+    return if start_date.blank? || final_weigh_in_date.blank?
+
+    if final_weigh_in_date < start_date
+      errors.add(:final_weigh_in_date, "has to be greater than the start date")
+    end
+  end
+
+  def weight_checker
+    return if starting_weight.blank? || weight_goal.blank?
+
+    if weight_goal > starting_weight
+      errors.add(:weight_goal, "has to be less than your starting weight")
+    end
+  end
 
   def total_lbs_to_loose
     starting_weight.to_f - weight_goal.to_f
@@ -83,6 +100,10 @@ class WeightJournal < ActiveRecord::Base
     three_day_array.map do |post_id|
       Post.find(post_id.id)
     end
+  end
+
+  def days_remaining
+    (final_weigh_in_date - DateTime.now).to_i + 1
   end
 
   # def last_three_days_posts

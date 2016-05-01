@@ -1,105 +1,23 @@
-<div class="row">
-<h1>starting stats:</h1>
-<div class="col-md-4">
-<strong>Start Date:</strong> <%= @weight_journal.start_date %>
-</div>
-<div class="col-md-4">
-<strong>Start Weight: </strong><%= @weight_journal.starting_weight %>
-</div>
-<div class="col-md-4">
-<strong>Total lbs. to Lose:</strong> <%= @weight_journal.total_lbs_to_loose %>
-</div>
-<div class="col-md-4">
-<strong>Final Weigh In Date:</strong> <%= @weight_journal.final_weigh_in_date %>
-</div>
-<div class="col-md-4">
-<strong>Weight Goal:</strong> <%= @weight_journal.weight_goal %>
-</div>
-<div class="col-md-4">
-<strong>Weight to lose per day to hit goal:</strong> <%= @weight_journal.avg_weight_to_loose_a_day_to_hit_goal %> 
-</div>
-</div>
+<!-- STARTING STATS FOR WEIGHT JOURNAL -->
+<%= render partial: 'starting_stats', locals: {weight_journal: @weight_journal} %> 
+
 <br>
 
-<% if @weight_journal.posts.count >= 1 %>
-    <div class="row">
-    <h1>current stats:</h1>
-    <div class="col-md-4">
-    <strong>Total number of journal posts:</strong> <%= @weight_journal.total_num_of_posts %> 
-    <br><strong>Most recent weight:</strong> <%= @most_recent_weight.current_weight %> 
-    <br><br><strong>Past few posts:</strong>
-    <% @weight_journal.last_three_days_posts.map do |meow| %>
-    (<%= link_to(meow.entry_date, weight_journal_post_path(@weight_journal, meow)) %>)
-    <% end %>
-    </div>
-    <div class="col-md-4">
-    <strong>Lbs per day:</strong>
-    <%= ((@most_recent_weight.current_weight - @weight_journal.weight_goal)/ ((@weight_journal.final_weigh_in_date - DateTime.now).to_i + 1).round(2)).to_s[0..3] %>
-    <br>
-    <%= @weight_journal.starting_weight - @most_recent_weight.current_weight %> lbs under original weight and <%= @most_recent_weight.current_weight - @weight_journal.weight_goal %> lbs remaining to goal.
-    </div>
-<% else %> 
-  <div class="no_previous_posts">
-  Get started ... <%= link_to "create a post!",  new_weight_journal_post_path(@weight_journal) %>
-<% end %>
-  </div>
-  <br>
+<!-- CURRENT STATS FOR WEIGHT JOURNAL -->
+<%= render partial: 'current_stats', locals: {weight_journal: @weight_journal, most_recent_weight: @most_recent_weight} %>
+
+<br>
 
 <!-- ANALYTICS  -->
 <% if @weight_journal.posts.count >= 1 %>
   <div class="row">
-  <h1>analytics:</h1>
+    <h1>analytics:</h1>
   
-<!-- ANALYTICS FOR WORKOUTS -->
-  <% if @weight_journal.workout_exist? %>
-  <div class="col-md-6">
-  <h2>workouts:</h2>
-        <strong>Percentage of times worked out:</strong><br>
-        Of <%= @weight_journal.posts.count %> post(s), you worked out %<%= @weight_journal.workouts_percentage.round(2) %> of the time
-        <br><br>
+    <!-- ANALYTICS FOR WORKOUTS -->
+    <%= render partial: 'workouts', locals: {weight_journal: @weight_journal, most_popular_exercise: @most_popular_exercise} %> 
 
-        <strong>Most Popular Workout(s): </strong> 
-        <br><% @most_popular_exercise.map do |workout|
-         %>
-         <%= workout %>
-        <% end %>
-        <br><br>
-          <strong>Total List of Workouts:</strong> 
-          <% @weight_journal.exercises_listed_in_order.map do |k, v| %>
-            <br> <%= k.capitalize %> : <%= v %> time(s)
-          <% end %>
-        </div>
-        <% end %>
-
-  <% end %>
-<!-- ANALTICS FOR FEELINGS -->
-  <% if @weight_journal.posts.count >= 1 %>
-   <div class="col-md-6"> 
-   <h2>feelings:</h2>
-    <strong>Most felt feeling(s):</strong>
-
-  <% @most_popular_feeling.map do |f| %><br>
-    <%= f %>
-  <% end %>
-<br><br>
-  <strong>Total List of Feelings:</strong>  
-  <% @weight_journal.feelings_listed_in_order.map do |k, v| %>
-    <br><%= k.capitalize %> : <%= v %> time(s) 
-  <% end %>
+    <!-- ANALTICS FOR FEELINGS -->
+    <%= render partial: 'feelings', locals: {weight_journal: @weight_journal, most_popular_feeling: @most_popular_feeling} %> 
   </div>
-</div>
 <% end %>
-
-<br><br>
-
-  <div class="footer" align="center">
-  <% if @weight_journal.posts.count >= 1 %>
-  Create a new <%= link_to "post", new_weight_journal_post_path(@weight_journal) %>
-  <% end %>
-  &nbsp; &nbsp; &nbsp; &nbsp;
-  <%= (@weight_journal.final_weigh_in_date - DateTime.now).to_i + 1 %> days left to reach your goal of <%= @weight_journal.weight_goal %> lbs!
-  &nbsp; &nbsp; &nbsp; &nbsp;
-  <% if @weight_journal.posts.count >= 1 %>
-  <%= link_to("View all posts", weight_journal_posts_path(@weight_journal)) %>
-  <% end %>
- </div>  
+ <%= render partial: 'footer', locals: {weight_journal: @weight_journal} %> 

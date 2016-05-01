@@ -32,8 +32,9 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @weight_journal = WeightJournal.find(params["weight_journal_id"])
     @user = User.find("#{@weight_journal.user_id}")
-
-    # @course = WeightJournal.find(params["weight_journal_id"]).find(params[:id])
+    if @user.id != current_user.id
+      redirect_to current_user
+    end
   end
 
   def edit

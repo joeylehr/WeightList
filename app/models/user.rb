@@ -108,13 +108,17 @@ class User < ActiveRecord::Base
 
   def total_weight_loss
     self.weight_journals.map do |wj|
-      wj.starting_weight - wj.most_recent_weight.current_weight
+      if wj.posts.blank?
+        0
+      else 
+        wj.starting_weight - wj.most_recent_weight.current_weight
+      end 
     end.sum
   end
 
   def goals_achieved
-    self.weight_journals.select do |wj|
-      wj.weight_goal >= wj.most_recent_weight.current_weight
+    self.weight_journals.select do |wj| 
+        !wj.posts.blank? && wj.weight_goal >= wj.most_recent_weight.current_weight
     end.count
   end
 

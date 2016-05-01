@@ -1,0 +1,12 @@
+  <br><br>
+<div class="footer" align="center">
+  <% if weight_journal.posts.count >= 1 %>
+    Create a new <%= link_to "post", new_weight_journal_post_path(weight_journal) %>
+  <% end %>
+  &nbsp; &nbsp; &nbsp; &nbsp;
+  <%= weight_journal.days_remaining %> days left to reach your goal of <%= weight_journal.weight_goal %> lbs!
+  &nbsp; &nbsp; &nbsp; &nbsp;
+  <% if weight_journal.posts.count >= 1 %>
+    <%= link_to("View all posts", weight_journal_posts_path(weight_journal)) %>
+  <% end %>
+ </div> 

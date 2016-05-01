@@ -18,12 +18,15 @@ class WeightJournalsController < ApplicationController
 
   def show
     @weight_journal = WeightJournal.find(params[:id])
+    @user = User.find(@weight_journal.user_id)
+    if @user.id != current_user.id
+      redirect_to current_user
+    end
     @arr_workouts = @weight_journal.array_of_workouts
     @most_popular_exercise = @weight_journal.most_popular_exercise
     @arr_feelings = @weight_journal.array_of_feelings
     @most_popular_feeling = @weight_journal.most_popular_feeling
-    @most_recent_weight = @weight_journal.most_recent_weight
-    
+    @most_recent_weight = @weight_journal.most_recent_weight   
   end
 
   def edit
@@ -43,9 +46,11 @@ class WeightJournalsController < ApplicationController
   end
 
   def quick_view
-    binding.pry
     @weight_journal = WeightJournal.find(params[:id])
-    render json: @weight_journal
+    @total_days = @weight_journal.total_days_of_diet
+    @most_recent_weight = @weight_journal.most_recent_weight    
+    @days_remaining = @weight_journal.days_remaining
+    render json: {wj: @weight_journal, days: @total_days, most_recent_weight: @most_recent_weight, days_remaining: @days_remaining }
   end
 
   private 

@@ -1,0 +1,23 @@
+<div class="row">
+  <% if weight_journal.posts.count >= 1 %>
+    <h1>current stats:</h1>
+    <div class="col-md-4">
+      <strong>Total number of journal posts:</strong> <%= weight_journal.total_num_of_posts %> 
+      <br><strong>Most recent weight:</strong> <%= most_recent_weight.current_weight %> 
+      <br><br><strong>Past few posts:</strong>
+      <% weight_journal.last_three_days_posts.map do |meow| %>
+        (<%= link_to(meow.entry_date, weight_journal_post_path(weight_journal, meow)) %>)
+      <% end %>
+    </div>
+    <div class="col-md-4">
+      <strong>Lbs per day:</strong>
+      <%= ((most_recent_weight.current_weight - weight_journal.weight_goal)/ ((weight_journal.final_weigh_in_date - DateTime.now).to_i + 1).round(2)).to_s[0..3] %>
+      <br>
+      <%= weight_journal.starting_weight - most_recent_weight.current_weight %> lbs under original weight and <%= most_recent_weight.current_weight - weight_journal.weight_goal %> lbs remaining to goal.
+    </div>
+    <% else %> 
+      <div class="no_previous_posts">
+      Get started ... <%= link_to "create a post!",  new_weight_journal_post_path(weight_journal) %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,31 @@
+<p> <h3>Weight:</h3>
+<% if weight_journal.weight_goal == post.current_weight %>
+    ERMAHGERD! <%= user.first_name %> you reached your target weight of <%= weight_journal.starting_weight%> and it only took you <%= (weight_journal.start_date - post.entry_date).abs.to_i %> days to hit it! 
+<% elsif weight_journal.weight_goal > post.current_weight %>
+     <%= user.first_name %>, YOU'RE A BEAST! You're blowing pass you're original weight goal!  
+<% elsif weight_journal.starting_weight > post.current_weight %>
+    Great job <%= user.first_name %>! You're <%= weight_journal.starting_weight - post.current_weight %> lb(s) under your goal  and only have to lose <%= post.current_weight - weight_journal.weight_goal %> more!
+<% elsif weight_journal.starting_weight == post.current_weight %>
+     <%= user.first_name %>, let's focus and try to get a few pounds off in the next few days!   
+<% else %>
+    Oh no <%= user.first_name %>! You're <%= (post.current_weight - weight_journal.starting_weight).abs %> lb(s) over your starting weight!!     
+<% end %>
+</p>
+
+<p> <h3>Motivation:</h3>
+<% if post.motivation_level >= 7 %>
+  Hell yeah! Keep it up -- you got this!
+<% elsif post.motivation_level >= 4 && post.motivation_level < 7  %>
+  Good job today -- let's keep the momentum going.
+<% else %>
+  You weren't so motivated today...maybe get a good night's sleep?       
+<% end %>
+</p>
+
+<p> <h3>Exercise:</h3>
+<% if post.worked_out == true %>
+    Great job working out today! Looks at those biceps!
+<% else %>
+    Hmm... I see you didn't work out today, how about you give it a go tomorrow? Remember, it's not just enough to diet, exercise is just as important and will keep you motivated!
+<% end %>
+</p>

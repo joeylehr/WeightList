@@ -1,0 +1,7 @@
+<div class="col-md-4" id="overall-feeling-stats">
+  <h3><%= image_tag("smile.png", :id => "smile") %> feelings stats: <%= image_tag("smile2.png", :id => "smile") %></h3>
+  Highly Motivated: <%= user.percentage_highly_motivated_posts.to_s[0..4] %>%<br>
+  Mid Motivated: <%= user.percentage_mid_motivated_posts.to_s[0..4] %>%<br>
+  Meh Motivated: <%= user.percentage_low_motivated_posts.to_s[0..4] %>%<br>
+  <!-- most popular feeling while dieting -->
+</div>

@@ -1,0 +1,5 @@
+<div class="col-md-4" id="overall-workout-stats">
+  <h3><%= image_tag("dumbbells-exercise.png", :id => "exercise") %>workout stats:</h3>
+  Exercised <%= @user.percentage_of_times_worked_out.to_s[0..4] %>% of the time<br>
+  <!-- favorite workout + % of time -->
+</div>

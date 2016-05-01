@@ -1,0 +1,17 @@
+<% if weight_journal.workout_exist? %>
+  <div class="col-md-6">
+  <h2>workouts:</h2>
+    <strong>Percentage of times worked out:</strong><br>
+    Of <%= weight_journal.posts.count %> post(s), you worked out %<%= weight_journal.workouts_percentage.round(2) %> of the time
+    <br><br>
+    <strong>Most Popular Workout(s): </strong><br>
+      <% most_popular_exercise.map do |workout| %>
+        <%= workout %>
+      <% end %>
+  <br><br>
+  <strong>Total List of Workouts:</strong>
+  <% weight_journal.exercises_listed_in_order.map do |k, v| %>
+      <br> <%= k.capitalize %> : <%= v %> time(s)
+    <% end %>
+  </div>
+<% end %>

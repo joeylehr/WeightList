@@ -1,81 +1,75 @@
-
 <div class="getting_started">
-<% if @user.weight_journals.count == 0 %>
-  <%= link_to("Get started and create your first  weight journal!", new_weight_journal_path) %>
-  <div class="veggies">
-  <%= image_tag("veggieslifting.gif", :id => "veggies") %>
-  </div>
-  <!-- Add logic that if no weight journal exists don't display anything from below -->
+  <% if @user.weight_journals.count == 0 %>
+    <%= link_to("Get started and create your first  weight journal!", new_weight_journal_path) %>
+    <div class="veggies">
+      <%= image_tag("veggieslifting.gif", :id => "veggies") %>
+    </div>
 </div>
-<% else %>
-<div class="large-size">
-  <%= link_to("Create a New Journal!", new_weight_journal_path) %>
+  <% else %>
+    <div class="large-size">
+      <%= link_to("Create a New Journal!", new_weight_journal_path) %>
   </div>
-<div class="container">
-  <div class="row">
-    <div class="col-md-6">
-  <h2>Active Journal(s):</h2>
-  <% @user.active_journals.each do |j| %>
-   <div class="magnifying-glass" id="<%= j.id %>">
-  <%= image_tag("magnifying-glass.png", :id => "#{j.id}") %> 
-  <%= link_to(j.title, weight_journal_path(j)) %>
-  </div>
-  <% end %>
-  </div>
-  <div class="col-md-6">
-  <h2>Completed Journal(s):</h2>
-  <% @user.completed_journals.each do |j| %> 
-    <%= link_to(j.title, weight_journal_path(j)) %>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Active Journal(s):</h2>
+        <% @user.active_journals.each do |j| %>
+          <img src="../assets/magnifying-glass.png" data-toggle="modal" data-target="#myModal" class="magnifying-glass" id="<%= j.id %>">
+          <%= link_to(j.title, weight_journal_path(j)) %>
+          <br>
+        <% end %>
+      </div>
+
+      <div class="col-md-6">
+        <h2>Completed Journal(s):</h2>
+        <% @user.completed_journals.each do |j| %>
+          <img src="../assets/magnifying-glass.png" data-toggle="modal" data-target="#myModal" class="magnifying-glass" id="<%= j.id %>"> 
+          <%= link_to(j.title, weight_journal_path(j)) %>
+          <br>
+        <% end %>
+      </div>
+    </div>
     <br>
-  <% end %>
-  </div>
-</div>
-<br>
-<div class="col-md-12">
-  <h2>Overall Stats: </h2>
-  <div class="calculator" >
-   <%=image_tag("bigcalculator.png", :id => "bigcalculator") %> <br>(click me!)
-  </div>
+    <!-- RENDERS MODAL SHOW PAGE FOR QUICK VIEW OF JOURNAL -->
+    <%= render "modal" %>
+ 
+      <div class="col-md-12">
+        <h2>Overall Stats: </h2>
+        <div class="calculator" >
+        <%=image_tag("bigcalculator.png", :id => "bigcalculator") %> <br>(click me!)
+        </div>
 
-  <div class="journals-stats">
+        <div class="journals-stats">
+          <!-- RENDERS WORKOUT STATS PER USER'S JOURNALS -->
+          <%= render partial: 'workout_stats', locals: {user: @user} %>
 
-  <div class="col-md-4" id="overall-workout-stats">
-    <h3><%= image_tag("dumbbells-exercise.png", :id => "exercise") %>workout stats:</h3>
-    Exercised <%= @user.percentage_of_times_worked_out.to_s[0..4] %>% of the time<br>
-    <!-- favorite workout + % of time -->
+          <!-- RENDERS FEELING STATS PER USER'S JOURNALS -->
+          <%= render partial: 'feeling_stats', locals: {user: @user} %>
+
+          <!-- RENDERS WEIGHT STATS PER USER'S JOURNALS -->
+          <%= render partial: 'weight_stats', locals: {user: @user} %>
+        </div>
+      </div>
+
+    <!-- RENDERS FOOTER -->
+    <%= render partial: 'footer', locals: {user: @user} %>
   </div>
-
-  <div class="col-md-4" id="overall-feeling-stats">
-    <h3><%= image_tag("smile.png", :id => "smile") %> feelings stats: <%= image_tag("smile2.png", :id => "smile") %></h3>
-    Highly Motivated: <%= @user.percentage_highly_motivated_posts.to_s[0..4] %>%<br>
-    Mid Motivated: <%= @user.percentage_mid_motivated_posts.to_s[0..4] %>%<br>
-    Meh Motivated: <%= @user.percentage_low_motivated_posts.to_s[0..4] %>%<br>
-    <!-- most popular feeling while dieting -->
-  </div>
-
-  <div class="col-md-4" id="overall-weight-stats">
-    <h3><%= image_tag("avocado.png", :id => "avocado") %>weight stats:</h3>
-    <% if @user.total_weight_loss > 0 %>
-      Total Lost: <%= @user.total_weight_loss %> lbs! 
-    <% elsif @user.total_weight_loss < 0 %>
-      Total lbs gained: <%= @user.total_weight_loss.abs %>
-    <% else %>
-      No weight loss!
-    <% end %>
-    <br>
-    Weight Goals Achieved: <%= @user.goals_achieved %>
-  </div>
-
-  </div>
-</div>
-
-  <div class="footer">
-  Total Active Journals: <%= @user.active_journals.count %>
-  &nbsp; &nbsp; &nbsp; &nbsp;
-  Total Completed Journals: <%= @user.completed_journals.count %>
-  &nbsp; &nbsp; &nbsp; &nbsp;
-  Total Posts: <%=@user.number_of_posts %> 
-  &nbsp; &nbsp; &nbsp; &nbsp;
- </div>  
 <% end %>
-</div>
+
+ <!-- <div class=".col-md-1">
+    <a href="#" class="btn btn-default" data-toggle="modal" data-target="#videoModal" data-theVideo="https://www.youtube.com/embed/ZXsQAXx_ao0" >NEED MOTIVATION?!</a>
+  </div>
+
+  <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <div>
+          <iframe width="100%" height="350" src=""></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
