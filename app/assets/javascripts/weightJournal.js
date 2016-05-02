@@ -6,7 +6,7 @@ function autoPlayYouTubeModal(){
     videoSRC = $(this).attr( "data-theVideo" ), 
     videoSRCauto = videoSRC+"?autoplay=1" ;
     $(theModal+' iframe').attr('src', videoSRCauto);
-    $(theModal+' button.close').click(function () {
+    $('body').click(function () {
         $(theModal+' iframe').attr('src', videoSRC);
     });   
   });
