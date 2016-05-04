@@ -1,7 +1,9 @@
+// "use strict";
+
 $(document).on('ready', function(){
   $('.journals-stats').hide();
   $("body").on('click', 'img[id="bigcalculator"]', function(){
-    $('.calculator').toggle()
+    $('.calculator').toggle();
     $('.journals-stats').show();
   });
 })
@@ -38,11 +40,14 @@ $(document).on('ready', function(){
         $(".modal-body").append('<li>' + "Most Recent Weigh-in Date: " + last_post_date + '</li>');
         $(".modal-body").append('<li>' + "Most Recent Weigh-in: " + last_post_weight + " lbs" + '</li>');
         if (days_remaining > 0) {
-          $(".modal-body").append('<li>' + "Day(s) Remaining: " + days_remaining + '</li>')
+          $(".modal-body").append('<li>' + "Day(s) Remaining: " + days_remaining + '</li>');
         } else {
-          $(".modal-body").append('<li>' + "You've completed this journal!" + '</li>')
+          $(".modal-body").append('<li>' + "You've completed this journal!" + '</li>');
         };
       }
+    }).error(function(){
+      $(".modal-title").append("Err...Rowr");
+      $(".modal-body").prepend('<li>' + '<img src="../assets/bridezilla.jpg" height="450px" width="475px">' + '</li>');
     });      
   });
 })
